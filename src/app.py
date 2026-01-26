@@ -124,14 +124,17 @@ if selected_files:
         # Resolve all dependencies for all selected files
         final_set = []
         seen = set()
+        seen_filenames = set()
         
         all_resolved_paths = []
         
         for f in selected_files:
             resolved = manager.resolve_dependencies(f)
             for r in resolved:
-                if r not in seen:
+                filename = os.path.basename(r)
+                if r not in seen and filename not in seen_filenames:
                     seen.add(r)
+                    seen_filenames.add(filename)
                     all_resolved_paths.append(r)
         
         # Now generate the text based on the consolidated list
