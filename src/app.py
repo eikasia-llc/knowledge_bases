@@ -148,9 +148,18 @@ if selected_files:
                 filename = os.path.basename(f)
                 content += f"{i}. Read {filename}\n"
         
-        # Token Counting
+        
+        # Layout: Text Area + Metrics
+        c1, c2 = st.columns([3, 1])
+        
+        with c1:
+            st.markdown("### Prompt Content")
+            # Capture user edits to the generated content
+            user_content = st.text_area("Prompt Content", value=content, height=600, help="Copy this content into your prompt.", label_visibility="collapsed")
+        
+        # Token Counting (Using user_content to reflect edits)
         enc = get_encoding()
-        prompt_tokens = len(enc.encode(content))
+        prompt_tokens = len(enc.encode(user_content))
         
         file_tokens = 0
         file_token_details = []
@@ -166,14 +175,7 @@ if selected_files:
                     file_token_details.append(f"{os.path.basename(f)}: {count}")
             except Exception:
                 file_token_details.append(f"{os.path.basename(f)}: Error reading")
-        
-        # Layout: Text Area + Metrics
-        c1, c2 = st.columns([3, 1])
-        
-        with c1:
-            st.markdown("### Prompt Content")
-            st.text_area("Prompt Content", value=content, height=600, help="Copy this content into your prompt.", label_visibility="collapsed")
-            
+
         with c2:
             st.markdown("### Token Stats")
             st.metric("Prompt Instructions", f"~{prompt_tokens}")
