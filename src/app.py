@@ -48,7 +48,7 @@ with st.sidebar:
 
 # Main Content
 st.title("🧠 Knowledge Base Injector")
-st.markdown("\n\nSelect the knowledge base to get the prompt\n\n")
+st.markdown("\n\nSelect the knowledge base to get the prompt.\n\n")
 
 # Layout: Output at the top (placeholder)
 output_container = st.container()
@@ -136,29 +136,43 @@ if selected_files:
         
         # Now generate the text based on the consolidated list
         if output_format == "XML":
-            content = "<required_readings>\n"
+            generated_content = "<required_readings>\n"
             for i, f in enumerate(all_resolved_paths, 1):
-                 content += f'  <dependency order="{i}">{f}</dependency>\n'
-            content += "</required_readings>"
+                 generated_content += f'  <dependency order="{i}">{f}</dependency>\n'
+            generated_content += "</required_readings>"
         elif output_format == "List":
-            content = "\n".join(f"- {f}" for f in all_resolved_paths)
+            generated_content = "\n".join(f"- {f}" for f in all_resolved_paths)
         else: # Instruction
-            content = "The following files are required dependencies. They may be distributed across the codebase, so please **search for these specific filenames** to locate and read them:\n\n"
+            generated_content = "The following files are required dependencies. They may be distributed across the codebase, so please **search for these specific filenames** to locate and read them:\n\n"
             for i, f in enumerate(all_resolved_paths, 1):
                 filename = os.path.basename(f)
-                content += f"{i}. Read {filename}\n"
+                generated_content += f"{i}. Read {filename}\n"
         
+        # State Management: Update session state if filters/selection changed
+        # We construct a unique key for the current selection state
+        selection_key = f"{sorted(selected_files)}_{output_format}"
         
+        if "last_selection_key" not in st.session_state or st.session_state["last_selection_key"] != selection_key:
+            st.session_state["prompt_content"] = generated_content
+            st.session_state["last_selection_key"] = selection_key
+            
         # Layout: Text Area + Metrics
         c1, c2 = st.columns([3, 1])
         
         with c1:
             st.markdown("### Prompt Content")
-            # Capture user edits to the generated content
-            user_content = st.text_area("Prompt Content", value=content, height=600, help="Copy this content into your prompt.", label_visibility="collapsed")
             
-            with st.expander("📋 Copy to Clipboard (Code Block)"):
-                st.code(user_content, language="text")
+            # Mode Toggler
+            mode = st.radio("Mode", ["Editing", "Copy"], horizontal=True, label_visibility="collapsed")
+            
+            if mode == "Editing":
+                user_content = st.text_area("Prompt Content", value=st.session_state["prompt_content"], height=600, label_visibility="collapsed")
+                # Update state on every keystroke/change effectively (on rerun)
+                st.session_state["prompt_content"] = user_content
+            else:
+                # Copy Mode
+                st.code(st.session_state["prompt_content"], language="text")
+                user_content = st.session_state["prompt_content"]
         
         # Token Counting (Using user_content to reflect edits)
         enc = get_encoding()
