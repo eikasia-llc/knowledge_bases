@@ -116,9 +116,10 @@ for category, items in categories.items():
 if selected_files:
     with output_container:
         st.divider()
-        st.subheader("Generated Prompt Context")
+        st.markdown("## Generated Prompt Context")
         
-        output_format = st.radio("Output Format", ["Instruction", "XML", "List"], horizontal=True)
+        st.markdown("### Output Format")
+        output_format = st.radio("Output Format", ["Instruction", "XML", "List"], horizontal=True, label_visibility="collapsed")
         
         # Resolve all dependencies for all selected files
         final_set = []
@@ -170,12 +171,15 @@ if selected_files:
         c1, c2 = st.columns([3, 1])
         
         with c1:
-            st.text_area("Prompt Content", value=content, height=400, help="Copy this content into your prompt.")
+            st.markdown("### Prompt Content")
+            st.text_area("Prompt Content", value=content, height=600, help="Copy this content into your prompt.", label_visibility="collapsed")
             
         with c2:
             st.markdown("### Token Stats")
             st.metric("Prompt Instructions", f"~{prompt_tokens}")
             st.metric("Referenced Context", f"~{file_tokens}", help="Estimated tokens of the content within the referenced MD files.")
+            
+            st.caption("Perdon Fran todavia hay que resolver el tema del metadata overhead 😅")
             
             with st.expander("Details"):
                 st.write("\n".join(f"- {d}" for d in file_token_details))
