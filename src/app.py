@@ -3,12 +3,18 @@ import os
 import sys
 from pathlib import Path
 import json
+import tiktoken
 
 # Add src to path so we can import modules
 current_dir = Path(__file__).parent.resolve()
 sys.path.append(str(current_dir))
 
 from dependency_manager import DependencyManager
+
+# Helper for token counting
+@st.cache_resource
+def get_encoding():
+    return tiktoken.get_encoding("cl100k_base")
 
 # Page Config
 st.set_page_config(
@@ -105,6 +111,7 @@ for category, items in categories.items():
                 if st.checkbox(item, key=item):
                     selected_files.append(item)
 
+
 # Output Generation (Rendered into the top container)
 if selected_files:
     with output_container:
@@ -139,9 +146,40 @@ if selected_files:
             for i, f in enumerate(all_resolved_paths, 1):
                 filename = os.path.basename(f)
                 content += f"{i}. Read {filename}\n"
-                
-        st.text_area("Prompt Content", value=content, height=400, help="Copy this content into your prompt.")
         
+        # Token Counting
+        enc = get_encoding()
+        prompt_tokens = len(enc.encode(content))
+        
+        file_tokens = 0
+        file_token_details = []
+        
+        for f in all_resolved_paths:
+            # Construct absolute path using manager.project_root
+            abs_path = manager.project_root / f
+            try:
+                with open(abs_path, 'r', encoding='utf-8') as file_obj:
+                    file_text = file_obj.read()
+                    count = len(enc.encode(file_text))
+                    file_tokens += count
+                    file_token_details.append(f"{os.path.basename(f)}: {count}")
+            except Exception:
+                file_token_details.append(f"{os.path.basename(f)}: Error reading")
+        
+        # Layout: Text Area + Metrics
+        c1, c2 = st.columns([3, 1])
+        
+        with c1:
+            st.text_area("Prompt Content", value=content, height=400, help="Copy this content into your prompt.")
+            
+        with c2:
+            st.markdown("### Token Stats")
+            st.metric("Prompt Instructions", f"~{prompt_tokens}")
+            st.metric("Referenced Context", f"~{file_tokens}", help="Estimated tokens of the content within the referenced MD files.")
+            
+            with st.expander("Details"):
+                st.write("\n".join(f"- {d}" for d in file_token_details))
+
         st.info(f"Selected {len(selected_files)} files resolved to {len(all_resolved_paths)} required readings (including hidden dependencies).")
 else:
     with output_container:
