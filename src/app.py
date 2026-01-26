@@ -163,7 +163,7 @@ if selected_files:
             st.markdown("### Prompt Content")
             
             # Mode Toggler
-            mode = st.radio("Mode", ["Editing", "Copy"], horizontal=True, label_visibility="collapsed")
+            mode = st.radio("Mode", ["Copy", "Editing"], horizontal=True, label_visibility="collapsed")
             
             if mode == "Editing":
                 user_content = st.text_area("Prompt Content", value=st.session_state["prompt_content"], height=600, label_visibility="collapsed")
