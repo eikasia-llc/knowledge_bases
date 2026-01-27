@@ -144,6 +144,19 @@
         "conventions": "../core/MD_CONVENTIONS.md",
         "agents": "../core/AGENTS.md"
       }
+    },
+    "content/agents/GCLOUD_AGENT.md": {
+      "path": "content/agents/GCLOUD_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/agents/RAGS_AGENT.md": {
+      "path": "content/agents/RAGS_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md"
+      }
     }
   }
 }
