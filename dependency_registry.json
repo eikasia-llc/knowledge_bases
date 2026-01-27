@@ -35,14 +35,6 @@
         "project_root": "../../README.md"
       }
     },
-    "content/plans/2026-01-25_001_research-basic-game_plan.md": {
-      "path": "content/plans/2026-01-25_001_research-basic-game_plan.md",
-      "dependencies": {
-        "conventions": "../guidelines/MD_CONVENTIONS.md",
-        "agents": "../guidelines/AGENTS.md",
-        "project_root": "../../README.md"
-      }
-    },
     "content/plans/Phase 1 Plan.md": {
       "path": "content/plans/Phase 1 Plan.md",
       "dependencies": {
@@ -55,13 +47,6 @@
       "dependencies": {
         "master_plan": "MASTER_PLAN.md",
         "conventions": "../guidelines/MD_CONVENTIONS.md"
-      }
-    },
-    "content/plans/Module 2 The Chat Interface.md": {
-      "path": "content/plans/Module 2 The Chat Interface.md",
-      "dependencies": {
-        "plan": "Phase 1 Plan.md",
-        "app": "../src/app.py"
       }
     },
     "content/plans/Phase 3 Plan.md": {
@@ -81,15 +66,8 @@
     "content/plans/INTER_CHATBOT_COMMUNICATION_PLAN.md": {
       "path": "content/plans/INTER_CHATBOT_COMMUNICATION_PLAN.md",
       "dependencies": {
-        "master_plan": "MASTER_PLAN.json",
-        "conventions": "MD_CONVENTIONS.md"
-      }
-    },
-    "content/plans/Module 1 Local Data Warehouse.md": {
-      "path": "content/plans/Module 1 Local Data Warehouse.md",
-      "dependencies": {
-        "plan": "Phase 1 Plan.md",
-        "ingestion": "../src/core/ingestion.py"
+        "master_plan": "MASTER_PLAN.md",
+        "conventions": "../guidelines/MD_CONVENTIONS.md"
       }
     },
     "content/agents/MANAGER_AGENT.md": {
@@ -109,7 +87,7 @@
     "content/agents/UPDATE_PROTOCOL.md": {
       "path": "content/agents/UPDATE_PROTOCOL.md",
       "dependencies": {
-        "conventions": "MD_CONVENTIONS.md",
+        "conventions": "../guidelines/MD_CONVENTIONS.md",
         "project_root": "../../README.md"
       }
     },
@@ -137,6 +115,13 @@
     "content/guidelines/MD_CONVENTIONS.md": {
       "path": "content/guidelines/MD_CONVENTIONS.md",
       "dependencies": {
+        "project_root": "../../README.md"
+      }
+    },
+    "content/guidelines/README_TEMPLATE.md": {
+      "path": "content/guidelines/README_TEMPLATE.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
         "project_root": "../../README.md"
       }
     }
