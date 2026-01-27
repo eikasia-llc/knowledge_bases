@@ -1,47 +1,50 @@
 # Agents Log
 - status: active
 - type: log
-- context_dependencies: {}
+- context_dependencies: {"conventions": "MD_CONVENTIONS.md", "agents": "AGENTS.md", "project_root": "README.md"}
 <!-- content -->
-High level log of the agent's actions. Do not edit previous entries. Fine-grained actions are logged in files inside `artifacts` directory.
+Most recent event comes first
 
 ## Intervention History
 - status: active
 <!-- content -->
 
-### [PLANNING]: Research Basic Game & Update Infra Plan
-- id: agents_log.intervention_history.planning_research_basic_game_update_infra_plan
+### Feature: Remove Metadata Tool
 - status: active
-- type: context
-- context_dependencies: {"conventions": "MD_CONVENTIONS.md", "agents": "AGENTS.md", "project_root": "README.md"}
-- last_checked: 2026-01-25
 <!-- content -->
-**Date:** 2026-01-25
-**AI Assistant:** Antigravity (Infrastructure Agent)
-**Task Name:** research-basic-game
-**Summary:** Cloned and analyzed `basic_game` repo to design deployment strategy.
-- **Goal:** specific deployment requirements for the basic game app.
-- **Details:** 
-    - Cloned `https://github.com/eikasia-llc/basic_game.git`.
-    - Analyzed `GCLOUD_PROJECT_SETUP.md` for architecture details.
-    - Updated `INFRASTRUCTURE_PLAN.md` with a 3-step deployment phase (Data, Backend, Frontend).
-- **Files Modified:** `INFRASTRUCTURE_PLAN.md`
+**Date:** 2026-01-22
+**AI Assistant:** Antigravity
+**Summary:** Created `remove_meta.py` to reverse `migrate.py` effects and clean incomplete content.
+- **Goal:** Allow removing metadata from markdowns and strip incomplete sections/content.
+- **Implementation:**
+    - Created `language/remove_meta.py` with strict metadata detection logic.
+    - Added flags `--remove-incomplete-content` and `--remove-incomplete-sections`.
+    - Created symlink `bin/language/remove_meta` -> `../../util/sh2py3.sh`.
+- **Files Modified:** `language/remove_meta.py` [NEW], `bin/language/remove_meta` [NEW].
 
-### Housekeeping Report (SAMPLE)
-- status: inactive
+### Feature: CLI Improvements
+- status: active
 <!-- content -->
-**Date:** 1999-01-22
-**AI Assistant:** Antigravity, Claude Opus 4.5 (Thinking)
-**Task Name:** initial-housekeeping
-**Summary:** Executed initial housekeeping protocol.
-- **Goal:** 
-- **Details:**
-- **Files Modified:** `src/advanced_simulation.py` updated to use the new analysis function.
+**Date:** 2026-01-22
+**AI Assistant:** Antigravity
+**Summary:** Improved Python CLIs in `manager` and `language` to be POSIX-friendly and support flexible I/O modes.
+- **Goal:** Standardize CLI usage and support single/multi-file processing with checks.
+- **Implementation:**
+    - Created `language/cli_utils.py` for shared arg parsing.
+    - Updated `migrate.py`, `importer.py` to support `-I` (in-line) and repeated `-i/-o`.
+    - Updated `md_parser.py`, `visualization.py` to support file output.
+    - Added `-h` to all tools.
+- **Files Modified:** `language/*.py`, `manager/*.py`.
 
-### Bug Fix: Notebook NameError (SAMPLE)
-- status: inactive
+### Feature: Shell Wrapper for Python Scripts
+- status: active
 <!-- content -->
-**Date:** 2024-05-22
-**Summary:** Fixed NameError in `advanced_experiment_interface.ipynb`.
-- **Issue:** The variable `ep_id` was used in a print statement but was undefined in the new JSON saving block.
-- **Fix:** Removed the erroneous print statement and cleanup old comments. Validated that the correct logging uses `current_step_info['episode_count']`.
+**Date:** 2026-01-22
+**AI Assistant:** Antigravity
+**Summary:** Created a generic shell wrapper `sh2py3.sh` and symlinks for python scripts.
+- **Goal:** Allow execution of python scripts in `manager/` and `language/` from a central `bin/` directory.
+- **Implementation:**
+    - Created `util/sh2py3.sh` to determine script path from symlink invocation and execute with python/python3.
+    - Created `bin/manager` and `bin/language` directories.
+    - Created symlinks in `bin/` mapping to `util/sh2py3.sh` for all `.py` files in `manager/` and `language/`.
+- **Files Modified:** `util/sh2py3.sh` [NEW], `bin/` directories [NEW].
