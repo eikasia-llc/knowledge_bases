@@ -1,7 +1,7 @@
 # Housekeeping Protocol
 - status: recurring
 - type: guideline
-- context_dependencies: {"conventions": "../../MD_CONVENTIONS.md", "agents": "../../AGENTS.md"}
+- context_dependencies: {"conventions": "../core/MD_CONVENTIONS.md", "agents": "../core/AGENTS.md"}
 <!-- content -->
 1. Read the AGENTS.md file.
 2. Look at the dependency network of the project, namely which script refers to which one.
@@ -10,7 +10,7 @@
 6. Print that report in the Latest Report subsection below, overwriting previous reports.
 7. Add that report to the AGENTS_LOG.md.
 
-# Current Project Housekeeping
+## Current Project Housekeeping
 - status: active
 - type: recurring
 <!-- content -->

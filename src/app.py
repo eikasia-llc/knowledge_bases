@@ -92,7 +92,7 @@ for path, info in files.items():
         categories["Skills"].append(path)
     elif "guideline" in lower_path or "convention" in lower_path:
          categories["Guidelines"].append(path)
-    elif "protocol" in lower_path:
+    elif "protocol" in lower_path or "housekeeping" in lower_path:
          categories["Protocols"].append(path)
     elif "log" in lower_path:
          categories["Logs"].append(path)
