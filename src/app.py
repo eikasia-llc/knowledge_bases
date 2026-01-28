@@ -72,24 +72,29 @@ categories = {
     "Logs": [],
     "Plans": [],
     "Context": [],
+    "Manager": [],
     "Uncategorized": []
 }
 
 # Core files pattern heuristics
-core_filenames = ["README.md", "dependency_registry.json", "AGENTS.md", "MD_CONVENTIONS.md"]
+# strictly these files or files in content/core.
+# We will be stricter in the loop to avoid grabbing manager/AGENTS.md
 
 for path, info in files.items():
     lower_path = path.lower()
     filename = os.path.basename(path)
     
-    # Core categorization
-    # Strict check for core filenames, regardless of directory
-    if filename in core_filenames or "content/core" in path:
+    # Categorization Priority:
+    # 1. Manager (anything in hierarchy manager/)
+    if path.startswith("manager/"):
+         categories["Manager"].append(path)
+    
+    # 2. Core (README.md at root, or anything in content/core/)
+    elif path == "README.md" or path == "dependency_registry.json" or path.startswith("content/core/"):
         categories["Core"].append(path)
-        continue
 
-    # Determine category based on path or metadata (for now simple path heuristics)
-    if "agent" in lower_path and "skill" in lower_path:
+    # 3. Rest of Content
+    elif "agent" in lower_path and "skill" in lower_path:
         categories["Skills"].append(path)
     elif "guideline" in lower_path or "convention" in lower_path:
          categories["Guidelines"].append(path)
@@ -101,7 +106,7 @@ for path, info in files.items():
          categories["Plans"].append(path)
     else:
         # Check if it looks like an Agent definition
-        if path.endswith("_AGENT.md"):
+        if path.endswith("_AGENT.md") or path.endswith("_ASSISTANT.md"):
              categories["Skills"].append(path)
         else:
              categories["Uncategorized"].append(path)
@@ -111,7 +116,9 @@ selected_files = []
 
 for category, items in categories.items():
     if items:
-        with st.expander(f"{category} ({len(items)})", expanded=(category in ["Core", "Skills", "Protocols"])):
+        # Default expand Core, Skills, Protocols, Manager
+        is_expanded = category in ["Core", "Skills", "Protocols", "Manager"]
+        with st.expander(f"{category} ({len(items)})", expanded=is_expanded):
             for item in sorted(items):
                 # Show only filename as label, but use full path as key/value
                 label = os.path.basename(item)

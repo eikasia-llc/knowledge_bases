@@ -65,14 +65,51 @@ class DependencyManager:
         except ValueError:
             return str(file_path)
 
-    def _resolve_dependency_path(self, base_file: str, dep_path: str) -> str:
-        """Resolve a dependency path relative to the base file."""
-        base_dir = Path(base_file).parent
-        resolved = (self.project_root / base_dir / dep_path).resolve()
-        try:
-            return str(resolved.relative_to(self.project_root.resolve()))
-        except ValueError:
-            return str(resolved)
+    def _resolve_dependency_file(self, base_file: str, dependency_name: str) -> str:
+        """
+        Resolve a dependency filename to a full path using the registry.
+        
+        Args:
+            base_file: The file requesting the dependency (context, unused for lookup but kept for API)
+            dependency_name: The filename of the dependency (e.g., 'AGENTS.md')
+            
+        Returns:
+            The registry path key (e.g., 'content/core/AGENTS.md')
+        """
+        # If it's already a full path in the registry, return it
+        if dependency_name in self.registry["files"]:
+            return dependency_name
+
+        candidates = []
+        target_name = os.path.basename(dependency_name)
+        
+        for reg_path in self.registry["files"].keys():
+            if os.path.basename(reg_path) == target_name:
+                candidates.append(reg_path)
+        
+        if not candidates:
+            # Fallback: maybe it's a relative path that needs resolving (legacy support)
+            # Try to treat it as relative to project root or base file
+            # But strictly speaking we want filenames. 
+            # If not found, return original to avoid crashing, though it might fail later.
+            return dependency_name
+            
+        if len(candidates) == 1:
+            return candidates[0]
+            
+        # Disambiguation Strategy
+        # 1. Prefer content/core/
+        for c in candidates:
+            if c.startswith("content/core/"):
+                return c
+        
+        # 2. Prefer content/
+        for c in candidates:
+            if c.startswith("content/") and "temprepo" not in c:
+                return c
+                
+        # 3. Default to first found
+        return candidates[0]
 
     def extract_dependencies_from_file(self, file_path: Path) -> Dict[str, str]:
         """Extract context_dependencies from a single MD file."""
@@ -132,21 +169,17 @@ class DependencyManager:
                     
                     target_abs = self.project_root / target_rel_path
                     
-                    # Compute relative path from current file's directory to the target file
-                    try:
-                        dep_rel = os.path.relpath(target_abs, md_file.parent)
-                    except ValueError:
-                        dep_rel = target_rel_path
+                    # Just use the filename (basename)
+                    dep_name = target_abs.name
 
                     # Check if dependency already exists
                     if alias in deps:
-                        # Fix common broken reference: "MD_CONVENTIONS.md" when it should be relative
-                        # If the value is just the filename, but the file doesn't exist locally, override it
-                        if deps[alias] == os.path.basename(target_rel_path):
-                            if not (md_file.parent / deps[alias]).exists():
-                                deps[alias] = dep_rel
+                        # If the value is a path, convert to basename
+                        current_val = deps[alias]
+                        if "/" in current_val or "\\" in current_val:
+                            deps[alias] = os.path.basename(current_val)
                     else:
-                        deps[alias] = dep_rel
+                        deps[alias] = dep_name
 
                 scanned[rel_path] = {
                     "path": rel_path,
@@ -258,8 +291,8 @@ class DependencyManager:
         deps = file_info.get("dependencies", {})
 
         # Recursively resolve each dependency (depth-first)
-        for alias, dep_path in deps.items():
-            resolved_path = self._resolve_dependency_path(normalized, dep_path)
+        for alias, dep_name in deps.items():
+            resolved_path = self._resolve_dependency_file(normalized, dep_name)
             self.resolve_dependencies(resolved_path, _visited, _result)
 
         # Add the target file last (after its dependencies)
@@ -276,7 +309,7 @@ class DependencyManager:
         if file_path.startswith("../") or file_path.startswith("./"):
             # Try to resolve it from various base locations
             for base_file in self.registry["files"].keys():
-                resolved = self._resolve_dependency_path(base_file, file_path)
+                resolved = self._resolve_dependency_file(base_file, file_path)
                 if resolved in self.registry["files"]:
                     return resolved
 
@@ -352,13 +385,15 @@ class DependencyManager:
     def get_dependents(self, file_path: str) -> List[str]:
         """Find all files that depend on the given file."""
         normalized = self._normalize_path(file_path)
+        file_path_basename = os.path.basename(file_path)
         dependents = []
 
         for reg_path, info in self.registry["files"].items():
             deps = info.get("dependencies", {})
-            for alias, dep_path in deps.items():
-                resolved = self._resolve_dependency_path(reg_path, dep_path)
-                if resolved == normalized or dep_path.endswith(file_path):
+            for alias, dep_name in deps.items():
+                # We want to see if 'file_path' is the resolved result of 'dep_name'
+                resolved = self._resolve_dependency_file(reg_path, dep_name)
+                if resolved == normalized or dep_name == file_path_basename:
                     dependents.append(reg_path)
                     break
 
