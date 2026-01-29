@@ -58,3 +58,27 @@ To run the Injector App locally:
 pip install -r requirements.txt
 streamlit run src/app.py
 ```
+
+### Running the Meta MCP Server
+To enable dynamic context discovery in your IDE:
+
+1.  **Install Dependencies**:
+    ```bash
+    pip install -r requirements-mcp.txt
+    ```
+2.  **Build the Index** (First run only):
+    ```bash
+    python src/index_builder.py .
+    ```
+3.  **Configure your IDE** (e.g., `claude_desktop_config.json`):
+    ```json
+    {
+      "mcpServers": {
+        "meta-knowledge": {
+          "command": "python",
+          "args": ["-m", "src.mcp_server"],
+          "cwd": "/path/to/knowledge_bases"
+        }
+      }
+    }
+    ```
