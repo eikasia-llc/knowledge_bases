@@ -2,7 +2,6 @@
 - status: active
 - type: agent_skill
 - id: rags-agent
-- last_checked: 2025-01-28
 <!-- content -->
 - context_dependencies: {"conventions": "MD_CONVENTIONS.md"}
 - last_checked: 2025-01-28
@@ -1429,6 +1428,11 @@ def load_people() -> list[dict]:
     return []
 
 # ============================================================
+- id: 
+- status: active
+- type: context
+- last_checked: 2026-01-31
+<!-- content -->
 
 # MCP Tool Definitions
 - id: mcp_tool_definitions

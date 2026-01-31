@@ -71,21 +71,6 @@ The following fields are standard, but the schema allows extensibility.
 | `blocked_by`| `list` | List of explicit dependencies (IDs or relative paths) |
 | `priority` | `enum` | `draft`, `low`, `medium`, `high`, `critical` (Optional) |
 | `id` | `string` | Unique identifier for the node (e.g., `project.component.task`). Used for robust merging and dependency tracking. |
-| `last_checked` | `string` | This is the date of the last time this node was modified, including change of status. |
-
-<!-- MERGED FROM NEWER VERSION -->
-
-The following fields are standard, but the schema allows extensibility.
-
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| `status` | `enum` | `todo`, `in-progress`, `done`, `blocked`, `recurring`, `active`|
-| `type` | `enum` | **Core**: `plan`, `task` <br>**Agentic**: `agent_skill`, `protocol`<br>**Knowledge**: `guideline`, `log`, `context` |
-| `owner` | `string` | The agent or user assigned to this (e.g., `dev-1`, `claude`) |
-| `estimate` | `string` | Time estimate (e.g., `1d`, `4h`) |
-| `blocked_by`| `list` | List of explicit dependencies (IDs or relative paths) |
-| `priority` | `enum` | `draft`, `low`, `medium`, `high`, `critical` (Optional) |
-| `id` | `string` | Unique identifier for the node (e.g., `project.component.task`). Used for robust merging and dependency tracking. |
 | `context_dependencies` | `dict` | map of semantic aliases to file paths (e.g., `{ "guideline": "CONVENTIONS.md" }`). Defines required reading for this node. |
 | `last_checked` | `string` | This is the date of the last time this node was modified, including change of status. |
 
@@ -112,20 +97,6 @@ For extended fields consider:
 ### 4. Context Dependencies
 - status: active
 <!-- content -->
-> [!WARNING]
-> This field is **DEPRECATED**. Dependencies are now managed centrally in `dependency_registry.json`.
-> Do not add `context_dependencies` metadata to new files.
-> Use `python src/dependency_manager.py add` to declare dependencies if automatic detection fails.
-
-(Legacy definition preserved for reference)
-A node may define a `context_dependencies` map to declare external files required to understand or execute it.
-
-**Structure**: A JSON-style dictionary where:
-- **Key**: A semantic alias (e.g., `role`, `guideline`, `schema`) describing *why* the file is needed.
-- **Value**: Relative path to the dependency.
-
-<!-- MERGED FROM NEWER VERSION -->
-
 A node may define a `context_dependencies` map to declare external files required to understand or execute it.
 
 **Structure**: A JSON-style dictionary where:
@@ -181,29 +152,11 @@ Some text here first.
 ```markdown
 
 ### Database Schema
-- status: active
-- owner: dev-2
-- estimate: 1d
-<!-- content -->
 status: done
 owner: dev-2
 
 ```
 *Warning: While some parsers might handle this, prefer bullet points `- key: value` for readability and stricter parsing.*
-
-<!-- MERGED FROM NEWER VERSION -->
-
-Set up PostgreSQL schema for users and sessions.
-```
-
-<!-- MERGED FROM NEWER VERSION -->
-
-Some text here first.
-
-- status: done
-
-```
-*Error: Metadata block must immediately follow the header.*
 
 ## Parsing Logic (for Developers)
 - status: active

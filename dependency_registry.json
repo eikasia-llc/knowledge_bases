@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "description": "Knowledge Base Dependency Registry",
-  "last_updated": "2026-01-28",
+  "last_updated": "2026-01-31",
   "files": {
     "content/guidelines/INFRASTRUCTURE_DEFINITIONS.md": {
       "path": "content/guidelines/INFRASTRUCTURE_DEFINITIONS.md",
@@ -381,6 +381,329 @@
         "conventions": "MD_CONVENTIONS.md",
         "project_root": "README.md",
         "agents": "AGENTS.md"
+      }
+    },
+    "META_MCP_AGENT.md": {
+      "path": "META_MCP_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/plans/UNIFIED_NEXUS_IMPLEMENTATION_PLAN.md": {
+      "path": "content/plans/UNIFIED_NEXUS_IMPLEMENTATION_PLAN.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/plans/LINKEDIN_KB_PLAN.md": {
+      "path": "content/plans/LINKEDIN_KB_PLAN.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "rag_patterns": "RAGS_AGENT.md",
+        "graph_reference": "mcmp_graph.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/agents/PERSONALITY_AGENT.md": {
+      "path": "content/agents/PERSONALITY_AGENT.md",
+      "dependencies": {
+        "guide": "chatbot_personality_guide_gemini.md",
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/agents/CLIENT_MCP_AGENT.md": {
+      "path": "content/agents/CLIENT_MCP_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/agents/SCRAPER_AGENT.md": {
+      "path": "content/agents/SCRAPER_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/agents/MCP_AGENT.md": {
+      "path": "content/agents/MCP_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "server": "src/mcp/server.py",
+        "tools": "src/mcp/tools.py",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/agents/PYUI_AGENT.md": {
+      "path": "content/agents/PYUI_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/agents/META_MCP_AGENT.md": {
+      "path": "content/agents/META_MCP_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/UNIFIED_NEXUS_IMPLEMENTATION_PLAN.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/UNIFIED_NEXUS_IMPLEMENTATION_PLAN.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/PERSONALITY_AGENT.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/PERSONALITY_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/SCRAPER_AGENT.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/SCRAPER_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/HOUSEKEEPING.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/HOUSEKEEPING.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/GCLOUD_AGENT.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/GCLOUD_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/RAGS_AGENT.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/RAGS_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/README.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/README.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/MD_CONVENTIONS.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/MD_CONVENTIONS.md",
+      "dependencies": {
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/TODOS.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/TODOS.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/rag_improvements.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/rag_improvements.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/MCP_AGENT.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/MCP_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/personality.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/personality.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/AGENTS.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/AGENTS.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/AGENT_LOGS.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/AGENT_LOGS.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/PYUI_AGENT.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/PYUI_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/UNIFIED_NEXUS_ARCHITECTURE.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/UNIFIED_NEXUS_ARCHITECTURE.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/UNIFIED_NEXUS_IMPLEMENTATION_PLAN.md": {
+      "path": "manager/cleaner/temprepo_cleaning/UNIFIED_NEXUS_IMPLEMENTATION_PLAN.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/PERSONALITY_AGENT.md": {
+      "path": "manager/cleaner/temprepo_cleaning/PERSONALITY_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/SCRAPER_AGENT.md": {
+      "path": "manager/cleaner/temprepo_cleaning/SCRAPER_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/HOUSEKEEPING.md": {
+      "path": "manager/cleaner/temprepo_cleaning/HOUSEKEEPING.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/GCLOUD_AGENT.md": {
+      "path": "manager/cleaner/temprepo_cleaning/GCLOUD_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/RAGS_AGENT.md": {
+      "path": "manager/cleaner/temprepo_cleaning/RAGS_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/README.md": {
+      "path": "manager/cleaner/temprepo_cleaning/README.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/MD_CONVENTIONS.md": {
+      "path": "manager/cleaner/temprepo_cleaning/MD_CONVENTIONS.md",
+      "dependencies": {
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/TODOS.md": {
+      "path": "manager/cleaner/temprepo_cleaning/TODOS.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/rag_improvements.md": {
+      "path": "manager/cleaner/temprepo_cleaning/rag_improvements.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/MCP_AGENT.md": {
+      "path": "manager/cleaner/temprepo_cleaning/MCP_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/personality.md": {
+      "path": "manager/cleaner/temprepo_cleaning/personality.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/AGENT_LOGS.md": {
+      "path": "manager/cleaner/temprepo_cleaning/AGENT_LOGS.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/PYUI_AGENT.md": {
+      "path": "manager/cleaner/temprepo_cleaning/PYUI_AGENT.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/temprepo_cleaning/UNIFIED_NEXUS_ARCHITECTURE.md": {
+      "path": "manager/cleaner/temprepo_cleaning/UNIFIED_NEXUS_ARCHITECTURE.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
       }
     }
   }

@@ -113,6 +113,7 @@ graph TD
 - type: context
 - id: unified-nexus.architecture.components
 <!-- content -->
+
 | Component | Technology | Purpose |
 |:----------|:-----------|:--------|
 | **Document Store** | ChromaDB | Vector embeddings for semantic search |
@@ -1292,6 +1293,7 @@ Examples of using the unified system.
 - type: context
 - last_checked: 2026-01-27
 <!-- content -->
+
 ```python
 from src.core.unified_engine import UnifiedEngine
 import google.generativeai as genai
@@ -1323,7 +1325,6 @@ engine = UnifiedEngine(
 - type: context
 - last_checked: 2026-01-27
 <!-- content -->
-
 # Structured query (routes to Text2SQL)
 - id: structured_query_routes_to_text2sql
 - status: active
@@ -1358,6 +1359,7 @@ print(result['answer'])
 - type: context
 - last_checked: 2026-01-27
 <!-- content -->
+
 ```python
 from src.core.document_ingestion import DocumentIngester
 from src.core.vector_store import VectorStore
@@ -1496,6 +1498,7 @@ Graph data represents **relationships** between entities—something that neithe
 - type: context
 - id: unified-nexus.graphs.rationale
 <!-- content -->
+
 | Data Type | Best For | Limitations |
 |:----------|:---------|:------------|
 | **Tables (SQL)** | Aggregations, filters, joins on known schemas | Poor at variable-depth relationships |
@@ -1512,6 +1515,7 @@ Graph data represents **relationships** between entities—something that neithe
 - type: context
 - id: unified-nexus.graphs.approaches
 <!-- content -->
+
 | Approach | Complexity | Cost | Best For | Recommendation |
 |:---------|:-----------|:-----|:---------|:---------------|
 | **Text Serialization** | Low | Free | Simple graphs, prototyping | ⭐ Start here |
@@ -1527,6 +1531,7 @@ Graph data represents **relationships** between entities—something that neithe
 - type: guideline
 - id: unified-nexus.graphs.recommended
 <!-- content -->
+
 For a **cheap and feasible** implementation that fits with Local Nexus, I recommend a **tiered approach**:
 
 1. **Tier 1 (Immediate)**: Text serialization + structured prompting
@@ -1542,6 +1547,7 @@ Most SMB use cases will be fully served by Tier 1 and Tier 2.
 - priority: high
 - estimate: 1h
 <!-- content -->
+
 Serialize graph structures into LLM-friendly text. The LLM can reason about relationships directly from text descriptions.
 
 **Serialization Formats**:
@@ -1790,12 +1796,12 @@ Answer:"""
 - priority: high
 - estimate: 30m
 <!-- content -->
+
 Represent graph state within your existing MD conventions. This integrates naturally with your agent protocol.
 
 **Format Example**:
 
 ```markdown
-
 ## Entity Graph
 - status: active
 - type: context
@@ -1944,6 +1950,7 @@ def graph_to_md_tables(nodes: list[dict], edges: list[dict]) -> str:
 - priority: medium
 - estimate: 2h
 <!-- content -->
+
 Store graph data in DuckDB tables and use recursive CTEs for traversal. This keeps everything in one database and integrates with your existing Text2SQL.
 
 **Schema**:
@@ -2208,6 +2215,7 @@ class DuckDBGraphStore:
 - priority: low
 - estimate: 1h
 <!-- content -->
+
 Use NetworkX for graph algorithms (centrality, communities, paths) and convert results to text for the LLM.
 
 ```python
@@ -2347,6 +2355,7 @@ class GraphAnalyzer:
 - priority: low
 - estimate: 4h
 <!-- content -->
+
 Microsoft's GraphRAG builds a knowledge graph FROM documents, then uses community detection to create hierarchical summaries. This is excellent for answering synthesis questions across many documents.
 
 **When to use**: You have many documents and need to answer "global" questions like "What are the main themes across all our customer feedback?"
@@ -2500,6 +2509,7 @@ Extract only clearly stated facts. Be conservative."""
 - priority: low
 - estimate: 3h
 <!-- content -->
+
 For large-scale graph needs, use Neo4j with an MCP server. This lets your agents query a full graph database programmatically.
 
 **When to use**: 
@@ -2550,6 +2560,7 @@ For large-scale graph needs, use Neo4j with an MCP server. This lets your agents
 - estimate: 2h
 - blocked_by: [unified-nexus.graphs.duckdb]
 <!-- content -->
+
 Update the unified engine to include a graph retrieval path.
 
 **Updated Architecture**:
@@ -2588,13 +2599,13 @@ Update the unified engine to include a graph retrieval path.
 **Updated Query Router**:
 
 ```python
-
 # Add to QueryRouter class
 - id: add_to_queryrouter_class
 - status: active
 - type: context
 - last_checked: 2026-01-27
 <!-- content -->
+
 GRAPH_KEYWORDS = {
     'connected', 'relationship', 'related to', 'path', 'network',
     'linked', 'between', 'influence', 'depends on', 'dependency',
@@ -2660,6 +2671,7 @@ def _retrieve_graph(self, question: str) -> dict:
 - type: guideline
 - id: unified-nexus.graphs.summary
 <!-- content -->
+
 **For Local Nexus (SMB focus, cost-sensitive)**:
 
 | Phase | Approach | Effort | Cost |
@@ -2702,6 +2714,7 @@ This gives you 80% of the value with 20% of the complexity.
 - type: context
 - id: unified-nexus.benefits
 <!-- content -->
+
 | Benefit | Description |
 |:--------|:------------|
 | **Single Interface** | Users ask questions naturally, system figures out how to answer |
@@ -2716,6 +2729,7 @@ This gives you 80% of the value with 20% of the complexity.
 - type: context
 - id: unified-nexus.future
 <!-- content -->
+
 1. **Semantic SQL**: Use embeddings to help with table/column matching
 2. **Feedback Loop**: Log queries and outcomes for fine-tuning
 3. **Multi-modal**: Support images and diagrams in documents

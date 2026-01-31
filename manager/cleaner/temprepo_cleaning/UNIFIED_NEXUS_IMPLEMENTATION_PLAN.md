@@ -225,6 +225,11 @@ Main orchestrator (inspired by mcmp_chatbot `RAGEngine`):
 ```python
 
 # Key method signatures
+- id: key_method_signatures
+- status: active
+- type: context
+- last_checked: 2026-01-31
+<!-- content -->
 @functools.lru_cache(maxsize=128)
 def decompose_query(self, user_question) -> list[str]
 
@@ -236,6 +241,11 @@ def generate_response(self, query, use_mcp_tools=False) -> str
 ---
 
 #### [NEW] `src/core/document_ingestion.py`
+- id: key_method_signatures.new_srccoredocument_ingestionpy
+- status: active
+- type: context
+- last_checked: 2026-01-31
+<!-- content -->
 Document processing pipeline:
 
 - **Chunking strategies**: size-based, header-based (for MD)
@@ -245,6 +255,11 @@ Document processing pipeline:
 ---
 
 #### [NEW] `src/core/graph_store.py` ✅
+- id: key_method_signatures.new_srccoregraph_storepy
+- status: active
+- type: context
+- last_checked: 2026-01-31
+<!-- content -->
 Institutional graph for organizational relationships:
 
 - **Node types**: person, team, department, document, product, customer
@@ -265,18 +280,6 @@ def add_node(self, node: GraphNode) -> bool
 def add_edge(self, edge: GraphEdge) -> bool
 def traverse(self, start_id, relationship, direction, max_depth) -> GraphQueryResult
 def get_context_for_query(self, entity_names: list[str]) -> str
-```
-
----
-
-<!-- MERGED FROM NEWER VERSION -->
-
-@functools.lru_cache(maxsize=128)
-def decompose_query(self, user_question) -> list[str]
-
-def retrieve_with_decomposition(self, question, top_k=3) -> list[dict]
-
-def generate_response(self, query, use_mcp_tools=False) -> str
 ```
 
 ---
@@ -407,36 +410,6 @@ MCP Server for structured data tools:
 - last_checked: 2026-01-31
 <!-- content -->
 ```bash
-
-#### [NEW] `src/core/document_ingestion.py`
-- id: key_method_signatures.new_srccoredocument_ingestionpy
-- status: active
-- type: context
-- last_checked: 2026-01-31
-<!-- content -->
-Document processing pipeline:
-
-- **Chunking strategies**: size-based, header-based (for MD)
-- **File readers**: TXT, MD, PDF, DOCX
-- **Metadata extraction**: source, type, timestamps
-
----
-
-#### [NEW] `src/core/graph_store.py` ✅
-- id: key_method_signatures.new_srccoregraph_storepy
-- status: active
-- type: context
-- last_checked: 2026-01-31
-<!-- content -->
-Institutional graph for organizational relationships:
-
-- **Node types**: person, team, department, document, product, customer
-- **Relationship types**: reports_to, manages, belongs_to, owns, references
-- **Traversal queries**: path finding, subgraph extraction
-- **Context extraction**: augments retrieval with organizational knowledge
-- **Persistence**: JSON files in `data/graph/`
-
-```python
 
 # After each phase
 - id: after_each_phase

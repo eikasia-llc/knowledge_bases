@@ -40,6 +40,21 @@ You have access to the following specialized tools in this directory and the `la
 - **Usage**: `python3 ../../language/apply_types.py`
 - **Function**: Scans the project (including `temprepo_cleaning`) and enforces semantic types and correct separators.
 
+### 3. `compare_and_merge.py`
+- id: cleaner_agent_context.tools_scripts.3_compare_and_mergepy
+- status: active
+- type: context
+- last_checked: 2026-01-31
+<!-- content -->
+- **Location**: `manager/cleaner/compare_and_merge.py`
+- **Usage**: `python3 manager/cleaner/compare_and_merge.py [--dry-run]`
+- **Function**: Scans ingested repositories and "Smart Merges" them into the `content/` directory.
+- **Logic**:
+    - **Identical**: Skipped.
+    - **Substring**: Automatically updates target if source is a superset.
+    - **Conflict**: Appends new source content with `<!-- MERGED FROM NEWER VERSION -->` separator.
+    - **Metadata**: Unions lists and updates single values.
+
 ## Workflow Protocol
 - status: active
 - type: protocol
@@ -51,11 +66,17 @@ When asked to "Clean Repos" or "Import Data", follow this strict sequence:
     - *Outcome*: Files populate in `temprepo_cleaning`.
 3.  **Verify Structure**: Check a few files in `temprepo_cleaning` to ensure they have metadata blocks.
 4.  **Enforce Schema**: Run `apply_types.py` to ensure all new files have the `<!-- content -->` separator and valid `type` field.
-5.  **Refine Context**: Manually or heuristically review the ingested files to add **natural context dependencies**.
+5.  **Smart Merge**: Run `compare_and_merge.py` (first with `--dry-run` to verify).
+    - This will merge updates into `content/` and flag new files.
+6.  **Refine Context**: Manually or heuristically review the ingested files to add **natural context dependencies**.
     - The automated scripts only insert defaults (e.g., `AGENTS.md`).
     - You must verify if an agent (e.g., `CONTROL_AGENT`) implements a specific guideline (e.g., `RL_GUIDELINES.md`) and add that dependency manually to the metadata: `"rl_guidelines": "RL_GUIDELINES.md"`.
-6.  **Report**: Summarize the number of files imported and confirm their schema compliance.
-7.  **Log**: Update `manager/cleaner/CLEANING_LOGS.md` with:
+7.  **Constraints & Exclusions**:
+    - **Disregard** `AGENT_LOGS.md`: These are local execution logs and should not be merged.
+    - **Disregard** `README.md`: These are repository-specific and should not overwrite the Knowledge Base entry point.
+    - **Disregard** `TODOS.md` and other temporary artifacts.
+8.  **Report**: Summarize the number of files imported and confirm their schema compliance.
+9.  **Log**: Update `manager/cleaner/CLEANING_LOGS.md` with:
     - Date and Time
     - Repository URL and Branch
     - Number of files processed
