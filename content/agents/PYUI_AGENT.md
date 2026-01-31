@@ -331,11 +331,48 @@ st.markdown("""
 **The ONLY solution**: Use `st.button()` components. They are the sole mechanism for triggering Python code from user clicks in Streamlit.
 
 **Workaround pattern**: If visual design requires link-like appearance, style buttons to look like links:
-```css
-button {
-    background: transparent !important;
-    color: #64ffda !important;
-    text-decoration: underline !important;
-    cursor: pointer !important;
-}
+```
+
+### Zip Download of Source Files
+- status: active
+<!-- content -->
+When the user wants to download a collection of files, generate a ZIP file in-memory using `io.BytesIO` and `zipfile`.
+
+```python
+import zipfile
+import io
+
+zip_buffer = io.BytesIO()
+with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+    for file_path in file_list:
+        if os.path.exists(file_path):
+             zip_file.write(file_path, arcname=os.path.basename(file_path))
+
+st.download_button(
+    label="Download Zip",
+    data=zip_buffer.getvalue(),
+    file_name="bundle.zip",
+    mime="application/zip",
+    key="download_btn" # Important!
+)
+```
+
+**Why this works:** It provides a seamless single-file download for complex contexts without requiring server-side storage.
+
+### Avoiding Stale Caching
+- status: active
+<!-- content -->
+Avoid using `@st.cache_resource` or `@st.cache_data` on functions that load mutable system state, such as a file registry that might be updated during the session.
+
+**Anti-Pattern:**
+```python
+@st.cache_resource
+def get_manager():
+    return DependencyManager() # BAD: Will hold onto old registry data
+```
+
+**Correct Pattern:**
+```python
+def get_manager():
+    return DependencyManager() # GOOD: Reloads fresh data on each rerun
 ```
