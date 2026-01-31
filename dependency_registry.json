@@ -705,6 +705,21 @@
         "agents": "AGENTS.md",
         "project_root": "README.md"
       }
+    },
+    "MD_CONVENTIONS.md": {
+      "path": "MD_CONVENTIONS.md",
+      "dependencies": {
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "AGENTS.md": {
+      "path": "AGENTS.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
     }
   }
 }

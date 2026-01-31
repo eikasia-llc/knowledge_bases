@@ -26,7 +26,6 @@ st.set_page_config(
 )
 
 # Initialize Manager
-@st.cache_resource
 def get_manager():
     # Root is the parent of src/
     repo_root = current_dir.parent
@@ -92,7 +91,7 @@ for path, info in files.items():
          categories["Manager"].append(path)
     
     # 2. Core (README.md at root, or anything in content/core/)
-    elif path == "README.md" or path == "dependency_registry.json" or path.startswith("content/core/"):
+    elif path in ["README.md", "AGENTS.md", "MD_CONVENTIONS.md", "dependency_registry.json"] or path.startswith("content/core/"):
         categories["Core"].append(path)
 
     # 3. Rest of Content
