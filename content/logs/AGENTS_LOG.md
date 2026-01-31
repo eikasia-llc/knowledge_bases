@@ -8,6 +8,16 @@ Most recent event comes first
 - status: active
 <!-- content -->
 
+### Feature: UI Download Functionality
+- status: active
+<!-- content -->
+**Date:** 2026-01-31
+**AI Assistant:** Antigravity
+**Summary:** Added "Download Selected" button to `app.py`.
+- **Goal:** Enable users to download the generated prompt content.
+- **Implementation:** Added `st.download_button` in the output container of `src/app.py`.
+- **Files Modified:** `src/app.py`.
+
 ### Feature: Remove Metadata Tool
 - status: active
 <!-- content -->

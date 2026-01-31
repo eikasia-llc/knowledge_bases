@@ -221,6 +221,13 @@ if selected_files:
                 st.write("\n".join(f"- {d}" for d in file_token_details))
 
         st.info(f"Selected {len(selected_files)} files resolved to {len(all_resolved_paths)} required readings (including hidden dependencies).")
+        
+        st.download_button(
+            label="Download Selected",
+            data=st.session_state.get("prompt_content", ""),
+            file_name="prompt_context.txt",
+            mime="text/plain"
+        )
 else:
     with output_container:
         st.info("Select files from the categories below to build your prompt.")
