@@ -52,7 +52,6 @@ LinkedIn's API is locked down for most use cases. We need profile data (skills, 
 - status: active
 - type: context
 <!-- content -->
-
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        LinkedIn Website                         │
@@ -109,7 +108,6 @@ LinkedIn's API is locked down for most use cases. We need profile data (skills, 
 - status: active
 - type: context
 <!-- content -->
-
 ```
 linkedin_kb/
 ├── src/
@@ -208,26 +206,37 @@ Set up project skeleton, configuration system, and basic data models.
 
 **Dependencies (requirements.txt):**
 ```
+
 # Core
+- type: plan
+<!-- content -->
 pydantic>=2.0
 pyyaml>=6.0
 python-dotenv>=1.0
 
 # Collection
+- type: plan
+<!-- content -->
 playwright>=1.40
 requests>=2.31
 beautifulsoup4>=4.12
 lxml>=5.0
 
 # Storage & Search
+- type: plan
+<!-- content -->
 chromadb>=0.4
 sentence-transformers>=2.2
 duckdb>=0.9
 
 # Graph
+- type: plan
+<!-- content -->
 networkx>=3.0         # Graph algorithms
 
 # Utilities
+- type: plan
+<!-- content -->
 rich>=13.0            # CLI formatting
 tenacity>=8.2         # Retry logic
 click>=8.0            # CLI framework
@@ -348,9 +357,16 @@ from typing import Optional, Literal
 from datetime import datetime
 
 # =============================================================================
-# NODE TYPES
-# =============================================================================
+- type: plan
+<!-- content -->
 
+# NODE TYPES
+- type: plan
+<!-- content -->
+
+# =============================================================================
+- type: plan
+<!-- content -->
 class PersonNode(BaseModel):
     """A person in the network."""
     id: str                          # Slug from profile URL
@@ -383,12 +399,21 @@ class ContentNode(BaseModel):
     # properties: author_id, post_url, created_at
 
 # Union type for all nodes
+- type: plan
+<!-- content -->
 Node = PersonNode | CompanyNode | InstitutionNode | ContentNode
 
 # =============================================================================
-# EDGE TYPES (Relationships)
-# =============================================================================
+- type: plan
+<!-- content -->
 
+# EDGE TYPES (Relationships)
+- type: plan
+<!-- content -->
+
+# =============================================================================
+- type: plan
+<!-- content -->
 class Edge(BaseModel):
     """A relationship between two nodes."""
     source: str                      # Source node ID
@@ -398,6 +423,8 @@ class Edge(BaseModel):
     # Common properties: start_date, end_date, role, observed_at
 
 # Relationship type constants
+- type: plan
+<!-- content -->
 class RelationshipTypes:
     # Person <-> Company
     WORKS_AT = "works_at"            # Current employment
@@ -421,9 +448,16 @@ class RelationshipTypes:
     SHARED = "shared"
 
 # =============================================================================
-# GRAPH CONTAINER
-# =============================================================================
+- type: plan
+<!-- content -->
 
+# GRAPH CONTAINER
+- type: plan
+<!-- content -->
+
+# =============================================================================
+- type: plan
+<!-- content -->
 class SocialGraph(BaseModel):
     """Complete graph representation."""
     nodes: list[Node] = Field(default_factory=list)
@@ -481,12 +515,26 @@ Build the safe, rate-limited profile fetching system.
 
 **Cookie extraction process (manual, one-time):**
 ```python
+
 # 1. Log into LinkedIn in Chrome
+- type: plan
+<!-- content -->
+
 # 2. Open DevTools > Application > Cookies
+- type: plan
+<!-- content -->
+
 # 3. Export li_at and JSESSIONID cookies
+- type: plan
+<!-- content -->
+
 # 4. Save to config/cookies.json (gitignored!)
+- type: plan
+<!-- content -->
 
 # cookies.json format:
+- type: plan
+<!-- content -->
 {
     "li_at": "AQED...",
     "JSESSIONID": "ajax:123..."
@@ -1083,6 +1131,7 @@ class GraphBuilder:
 
 **Markdown format (following MCMP pattern):**
 ```markdown
+
 # LinkedIn Social Graph
 - status: active
 - type: context
@@ -1090,6 +1139,8 @@ class GraphBuilder:
 <!-- content -->
 
 ### Nodes
+- type: task
+<!-- content -->
 | id | name | type | properties |
 |---|---|---|---|
 | john_doe | John Doe | Person | headline: ML Engineer at Google, location: Bay Area |
@@ -1099,6 +1150,8 @@ class GraphBuilder:
 | stanford | Stanford University | Institution | type: University |
 
 ### Edges
+- type: task
+<!-- content -->
 | source | target | relationship | properties |
 |---|---|---|---|
 | john_doe | google | works_at | role: ML Engineer, start_date: 2022-01 |

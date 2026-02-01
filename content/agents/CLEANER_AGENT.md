@@ -82,3 +82,6 @@ When asked to "Clean Repos" or "Import Data", follow this strict sequence:
     - Number of files processed
     - Any errors or warnings (e.g., failed migrations)
     - Any manual modifications made to `clean_repo.py` or other scripts to enable the import.
+10. **Cleanup**:
+    - **Action**: Remove all contents of `manager/cleaner/temprepo_cleaning/` to ensure a clean state for the next run.
+    - **Command**: `rm -rf manager/cleaner/temprepo_cleaning/*`

@@ -435,21 +435,32 @@ User Question
 When users want to understand their data:
 
 ```python
+
 # 1. Start with system overview
+- type: agent_skill
+<!-- content -->
 stats = await get_data_stats()
 
 # 2. Explore relevant tables
+- type: agent_skill
+<!-- content -->
 tables = await list_tables()
 for t in relevant_tables:
     schema = await describe_table(t)
-    
+
 # 3. Sample the data
+- type: agent_skill
+<!-- content -->
 sample = await execute_sql(f"SELECT * FROM {table} LIMIT 10")
 
 # 4. Check available documents
+- type: agent_skill
+<!-- content -->
 sources = await list_document_sources()
 
 # 5. Formulate specific queries based on understanding
+- type: agent_skill
+<!-- content -->
 ```
 
 ### Pattern 3: Hybrid Question Resolution
@@ -462,7 +473,10 @@ For questions requiring both structured and unstructured data:
 **Example**: "Which products have the most complaints about shipping?"
 
 ```python
+
 # Step 1: Get products with complaint counts (structured)
+- type: agent_skill
+<!-- content -->
 sql_result = await execute_sql("""
     SELECT product_id, COUNT(*) as complaint_count
     FROM complaints
@@ -472,14 +486,21 @@ sql_result = await execute_sql("""
 """)
 
 # Step 2: For top products, search for shipping-related complaints (semantic)
+- type: agent_skill
+<!-- content -->
 for product in sql_result['data'][:5]:
     shipping_complaints = await semantic_search(
         query=f"shipping delivery delay problem {product['product_id']}",
         source_filter="complaints"
     )
-    
+
 # Step 3: Synthesize findings
+- type: agent_skill
+<!-- content -->
+
 # Combine numerical rankings with semantic themes
+- type: agent_skill
+<!-- content -->
 ```
 
 ### Pattern 4: Iterative Refinement
@@ -490,23 +511,32 @@ for product in sql_result['data'][:5]:
 When initial results are insufficient:
 
 ```python
+
 # Initial attempt
+- type: agent_skill
+<!-- content -->
 result = await unified_query("What's our refund policy for damaged items?")
 
 # If result lacks specificity, try targeted search
+- type: agent_skill
+<!-- content -->
 if not_specific_enough(result):
     docs = await semantic_search(
         query="refund policy damaged items return",
         top_k=10  # Get more candidates
     )
-    
+
 # If still insufficient, check for related policies
+- type: agent_skill
+<!-- content -->
 related = await semantic_search(
     query="return policy warranty damage defect",
     top_k=5
 )
 
 # Combine all findings for comprehensive answer
+- type: agent_skill
+<!-- content -->
 ```
 
 ## Error Handling Guidelines
@@ -521,7 +551,10 @@ related = await semantic_search(
 - type: guideline
 <!-- content -->
 ```python
+
 # When SQL fails, provide actionable recovery
+- type: agent_skill
+<!-- content -->
 {
     "error": "SQLError",
     "message": "Column 'ship_date' not found in table 'orders'",
@@ -536,7 +569,10 @@ related = await semantic_search(
 - type: guideline
 <!-- content -->
 ```python
+
 # When no results found, suggest alternatives
+- type: agent_skill
+<!-- content -->
 {
     "error": "NoResults",
     "message": "No documents found matching 'remote work policy 2024'",
@@ -603,7 +639,6 @@ When users need capabilities not yet exposed via MCP:
 - status: active
 - type: context
 <!-- content -->
-
 | Request | Implementation Approach |
 |:--------|:------------------------|
 | "Search with date range" | Add date filter parameter to `semantic_search` |
@@ -641,15 +676,24 @@ from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent, Resource
 
 # Import Unified Nexus components
+- type: agent_skill
+<!-- content -->
 from src.core.unified_engine import UnifiedEngine
 from src.core.vector_store import VectorStore
 from src.core.text2sql import Text2SQLEngine
 from src.core.query_router import QueryRouter, QueryType
 
 # =============================================================================
-# Configuration
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# Configuration
+- type: agent_skill
+<!-- content -->
+
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 CONFIG = {
     "db_path": "data/warehouse.duckdb",
     "vector_store_path": "data/vectordb",
@@ -657,12 +701,21 @@ CONFIG = {
 }
 
 # =============================================================================
-# Server Initialization
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# Server Initialization
+- type: agent_skill
+<!-- content -->
+
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 server = Server("local-nexus-client")
 
 # Initialize the Unified Engine (lazy loading)
+- type: agent_skill
+<!-- content -->
 _engine: Optional[UnifiedEngine] = None
 
 
@@ -681,11 +734,17 @@ def get_engine() -> UnifiedEngine:
         )
     return _engine
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # Tool Registry
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 TOOLS: Dict[str, Dict[str, Any]] = {}
 
 
@@ -700,11 +759,17 @@ def register_tool(name: str, description: str, input_schema: Dict[str, Any]):
         return func
     return decorator
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # Query Interface Tools
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 @register_tool(
     name="unified_query",
     description="""Answer a question using the Unified Nexus engine.
@@ -777,11 +842,17 @@ async def classify_query(question: str) -> Dict[str, Any]:
     details = engine.router.get_classification_details(question)
     return details
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # Structured Data Tools
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 @register_tool(
     name="execute_sql",
     description="""Execute SQL directly against DuckDB.
@@ -881,11 +952,17 @@ async def describe_table(table_name: str) -> Dict[str, Any]:
         "sample_rows": sample
     }
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # Unstructured Data Tools
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 @register_tool(
     name="semantic_search",
     description="""Search documents by meaning (not keywords).
@@ -942,11 +1019,17 @@ async def list_document_sources() -> Dict[str, Any]:
         "persist_directory": stats["persist_directory"]
     }
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # System Tools
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 @register_tool(
     name="get_system_status",
     description="Check health and statistics of all Unified Nexus components.",
@@ -967,11 +1050,17 @@ async def get_system_status() -> Dict[str, Any]:
         }
     }
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # Helper Functions
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 def _summarize_sources(retrieval: dict) -> List[str]:
     """Summarize which sources were used in retrieval."""
     sources = []
@@ -993,11 +1082,17 @@ def _estimate_confidence(result: dict) -> str:
         return "high" if retrieval.get("type") != "hybrid" else "medium"
     return "low"
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # MCP Handlers
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 @server.list_tools()
 async def list_tools() -> List[Tool]:
     """Return all registered tools."""
@@ -1027,11 +1122,17 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> List[TextContent]:
             "message": str(e)
         }))]
 
-
 # =============================================================================
+- type: agent_skill
+<!-- content -->
+
 # Entry Point
-# =============================================================================
+- type: agent_skill
+<!-- content -->
 
+# =============================================================================
+- type: agent_skill
+<!-- content -->
 async def main():
     """Run the MCP server."""
     async with stdio_server() as (read_stream, write_stream):

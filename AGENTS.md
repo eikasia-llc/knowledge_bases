@@ -2,8 +2,6 @@
 - status: active
 - type: guideline
 <!-- content -->
-
-
 <!-- MERGED FROM NEWER VERSION -->
 
 - context_dependencies: {"conventions": "MD_CONVENTIONS.md", "project_root": "README.md"}

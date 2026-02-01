@@ -16,7 +16,7 @@ The project implements a **Lightweight In-Process MCP Server** rather than a sep
 - id: mcp_protocol_data_tools_skill.1_architecture_overview.core_components
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 1.  **Server (`src/mcp/server.py`)**:
     -   Defines the `MCPServer` class.
@@ -39,7 +39,7 @@ We use a **JSON-as-Database** pattern exposed via MCP tools. This acts as a brid
 - id: mcp_protocol_data_tools_skill.2_the_json_database_pattern.how_it_works
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 1.  **Raw Data**: We scrape the website and store data in `data/*.json` files. This is our "source of truth".
 2.  **Tool Abstraction**: We write Python functions (`search_people`, `get_events`) that load these JSONs and perform filtering/searching in memory.
@@ -56,7 +56,7 @@ We use a **JSON-as-Database** pattern exposed via MCP tools. This acts as a brid
 - id: mcp_protocol_data_tools_skill.2_the_json_database_pattern.strengths
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 -   **Simplicity**: No external database (SQL/NoSQL) required.
 -   **Flexibility**: JSON schemas can evolve easily.
@@ -66,7 +66,7 @@ We use a **JSON-as-Database** pattern exposed via MCP tools. This acts as a brid
 - id: mcp_protocol_data_tools_skill.2_the_json_database_pattern.weaknesses_improvements
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 -   **Performance**: Loading large JSON files (e.g., `raw_events.json`) from disk on *every* tool call is inefficient.
     -   *Improvement*: Cache the loaded data in memory using `@functools.lru_cache` or a singleton `DataManager`.

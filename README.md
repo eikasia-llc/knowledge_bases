@@ -1,5 +1,6 @@
 # Knowledge Base Repository
 - status: active
+- type: guideline
 <!-- content -->
 
 ## Overview

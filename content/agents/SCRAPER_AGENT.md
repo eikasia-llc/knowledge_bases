@@ -10,7 +10,7 @@ This document defines the implementation patterns for the MCMP event scraper, in
 - id: event_scraper_implementation_guide.critical_dynamic_loading
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 > [!CAUTION]
 > The events-overview page uses a **"Load more" button** to dynamically load events. Static `requests.get()` only captures 16 of 53+ events.
@@ -19,7 +19,7 @@ This document defines the implementation patterns for the MCMP event scraper, in
 - id: event_scraper_implementation_guide.critical_dynamic_loading.problem
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 - Initial page load shows ~16 events
 - Remaining events load via JavaScript when clicking "Load more"
@@ -30,7 +30,7 @@ This document defines the implementation patterns for the MCMP event scraper, in
 - id: event_scraper_implementation_guide.critical_dynamic_loading.solution_selenium
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 ```python
 def _fetch_events_with_selenium(self, url):
@@ -61,14 +61,14 @@ def _fetch_events_with_selenium(self, url):
 - id: event_scraper_implementation_guide.website_structure
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 
 ### Event Sources
 - id: event_scraper_implementation_guide.website_structure.event_sources
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 1. **Events Overview** (Primary): `https://www.philosophie.lmu.de/mcmp/en/latest-news/events-overview/` ⚠️ Dynamic
 2. **Events Page**: `https://www.philosophie.lmu.de/mcmp/en/events/`
@@ -78,7 +78,7 @@ def _fetch_events_with_selenium(self, url):
 - id: event_scraper_implementation_guide.website_structure.dom_structure
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 - **Listing pages**: Events in `<a>` tags with class `.filterable-list__list-item-link.is-events`
 - **Individual event pages**:
@@ -92,14 +92,14 @@ def _fetch_events_with_selenium(self, url):
 - id: event_scraper_implementation_guide.implementation_patterns
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 
 ### 1. Deduplication (URL-based)
 - id: event_scraper_implementation_guide.implementation_patterns.1_deduplication_url_based
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 ```python
 seen_urls = set()
@@ -113,7 +113,7 @@ for link in event_links:
 - id: event_scraper_implementation_guide.implementation_patterns.2_event_details_extraction
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 ```python
 
@@ -121,7 +121,7 @@ for link in event_links:
 - id: labeled_sections
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 for h2 in soup.find_all('h2'):
     label = h2.get_text(strip=True).rstrip(':').lower()
@@ -132,7 +132,7 @@ for h2 in soup.find_all('h2'):
 - id: location_from_address_tag
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 address = soup.find('address')
 if address:
@@ -143,7 +143,7 @@ if address:
 - id: location_from_address_tag.3_date_parsing
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 ```python
 
@@ -151,7 +151,7 @@ if address:
 - id: 4_february_2026_2026_02_04
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 match = re.search(r'(\d{1,2})\s+(\w+)\s+(\d{4})', date_text)
 ```
@@ -162,7 +162,7 @@ match = re.search(r'(\d{1,2})\s+(\w+)\s+(\d{4})', date_text)
 - id: 4_february_2026_2026_02_04.output_schema
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 ```json
 {
@@ -185,9 +185,69 @@ match = re.search(r'(\d{1,2})\s+(\w+)\s+(\d{4})', date_text)
 - id: 4_february_2026_2026_02_04.verification
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 - [x] All 53+ events captured
 - [x] Abstracts extracted from individual pages
 - [x] No duplicate URLs
 - [x] Dates in ISO format
+
+## People Scraper Implementation
+- id: 4_february_2026_2026_02_04.people_scraper_implementation
+- status: active
+- type: context
+- last_checked: 2026-02-01
+<!-- content -->
+
+### Sources
+- id: 4_february_2026_2026_02_04.people_scraper_implementation.sources
+- status: active
+- type: context
+- last_checked: 2026-02-01
+<!-- content -->
+- **People Index**: `https://www.philosophie.lmu.de/mcmp/en/people/`
+- **Profile Pages**: Individual pages linked from the index (e.g., `/people/contact-page/...`)
+
+### DOM Structure (Profile Page)
+- id: 4_february_2026_2026_02_04.people_scraper_implementation.dom_structure_profile_page
+- status: active
+- type: context
+- last_checked: 2026-02-01
+<!-- content -->
+| Field | Selector / Logic | Notes |
+|-------|------------------|-------|
+| **Name** | `h1.header-person__name` | Fallback to `h1` |
+| **Position** | `p.header-person__job` | e.g., "Doctoral Fellow" |
+| **Org Unit** | `p.header-person__department` | e.g., "Chair of Philosophy of Science" |
+| **Email** | `a.header-person__contentlink.is-email` | Strip "Send an email", check `mailto:` |
+| **Phone** | `a.header-person__contentlink.is-phone` | |
+| **Room** | `div.header-person__detail_area p` | **CRITICAL**: Exclude text containing "Room finder" |
+| **Image** | `img.picture__image` | Get `src` attribute |
+| **Website** | `a` with text "Personal website" | |
+| **Publications** | `h2` "Selected publications" | Parse sibling `ul` or `ol` lists |
+
+### Output Schema
+- id: 4_february_2026_2026_02_04.people_scraper_implementation.output_schema
+- status: active
+- type: context
+- last_checked: 2026-02-01
+<!-- content -->
+```json
+{
+    "name": "Dr. Conrad Friedrich",
+    "url": "https://...",
+    "description": "Personal information...",
+    "metadata": {
+        "position": "Postdoctoral fellow",
+        "organizational_unit": "MCMP",
+        "email": "Conrad.Friedrich@lmu.de",
+        "office_address": "Ludwigstr. 31",
+        "room": "Room 225",
+        "website": "https://conradfriedrich.github.io/",
+        "image_url": "https://...",
+        "selected_publications": ["Pub 1", "Pub 2"]
+    }
+}
+```
+
+---

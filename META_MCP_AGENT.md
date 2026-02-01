@@ -744,7 +744,10 @@ meta_mcp_agent/
 Server configuration options.
 
 ```yaml
+
 # config/default.yaml
+- type: agent_skill
+<!-- content -->
 knowledge_base:
   root_path: "./knowledge_bases"
   file_patterns:

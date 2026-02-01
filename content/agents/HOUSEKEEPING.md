@@ -47,7 +47,7 @@ Based on codebase analysis (2026-01-28):
 - id: housekeeping_protocol.dependency_network.1_application_layer_entry_point
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 - **`app.py`**: Main Streamlit application.
   - *Dependencies*: `src.core.engine`, `src.core.vector_store` (dynamic), `src.scrapers.mcmp_scraper` (dynamic), `gspread` (optional).
@@ -57,7 +57,7 @@ Based on codebase analysis (2026-01-28):
 - id: housekeeping_protocol.dependency_network.2_core_engine_layer
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 - **`src/core/engine.py`**: RAGEngine class.
   - *Dependencies*: `src.core.vector_store`, `src.utils.logger`, `openai`, `anthropic`, `google.genai`.
@@ -70,7 +70,7 @@ Based on codebase analysis (2026-01-28):
 - id: housekeeping_protocol.dependency_network.3_data_acquisition_layer_scrapers
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 - **`src/scrapers/mcmp_scraper.py`**: MCMPScraper class.
   - *Dependencies*: `requests`, `bs4`, `src.utils.logger`.
@@ -80,7 +80,7 @@ Based on codebase analysis (2026-01-28):
 - id: housekeeping_protocol.dependency_network.4_utilities_scripts
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 - **`src/utils/logger.py`**: centralized logging.
 - **`scripts/update_knowledge.py`**: specific script for parsing markdown knowledge.
@@ -128,3 +128,29 @@ System health check failed. Critical dependency `chromadb` is missing from the e
 - [ ] Install `chromadb`.
 - [ ] Debug `GraphUtils` node loading.
 - [ ] Provide `.streamlit/secrets.toml`.
+
+<!-- MERGED FROM NEWER VERSION -->
+
+**Execution Date:** 2026-01-31 (Antigravity)
+
+**Status Checks:**
+1.  **Data Update (`src/scrapers/mcmp_scraper.py`)**: **Passed**.
+    - **Selenium Enabled**: Yes.
+    - Stats: **53 events** (Exhaustive scrape success), 82 people, 4 research items, 7 general items.
+2.  **Vector Store (`src/core/vector_store.py`)**: **Passed**.
+    - Unit tests (`tests/test_vector_store.py`) passed.
+3.  **Connectivity (`scripts/test_sheets_connection.py`)**: **Passed**.
+    - Google Sheets authentication and write test successful.
+4.  **Unit Tests**: **Mixed**.
+    - `tests/test_engine.py`: **Passed**.
+    - `tests/test_vector_store.py`: **Passed**.
+    - `tests/test_scraper.py`: **Passed**.
+    - `tests/test_graph_correctness.py`: **Passed**.
+    - `tests/test_mcp.py`: **Failed**.
+        - `test_search_people` failed: `search_people("Bonatti", role_filter="Doctoral fellow")` returned 0 results.
+
+**Summary:**
+Housekeeping successfully restored the exhaustive event scraper by installing missing Selenium dependencies. Database is now fully populated with 53 upcoming events. One minor regression remains in MCP role filtering.
+
+**Action Items:**
+- [ ] Debug `search_people` in `src/mcp/tools.py` or check if "Bonatti" role data changed.

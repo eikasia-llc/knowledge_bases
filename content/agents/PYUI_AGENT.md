@@ -70,7 +70,7 @@ Maintain the visual hierarchy:
 - id: python_user_interface_agent_skill.common_patterns.adding_a_configuration_toggle
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 Place it at the bottom of the sidebar and pass it to the engine generation call.
 
@@ -85,7 +85,7 @@ with st.sidebar:
 - id: usage
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 if prompt:
     # ...
@@ -96,7 +96,7 @@ if prompt:
 - id: usage.handling_chat_history
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 Always append to `st.session_state.messages` immediately after displaying.
 
@@ -147,7 +147,7 @@ import calendar
 - id: initialize_monthyear_in_session_state
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 if "cal_year" not in st.session_state:
     st.session_state.cal_year = datetime.now().year
@@ -158,7 +158,7 @@ if "cal_month" not in st.session_state:
 - id: navigation_buttons
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 col1, col2, col3 = st.columns([1, 2, 1])
 with col1:
@@ -182,7 +182,7 @@ with col3:
 - id: build_calendar_grid
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 cal = calendar.Calendar(firstweekday=0)  # Monday start
 month_days = cal.monthdayscalendar(st.session_state.cal_year, st.session_state.cal_month)
@@ -261,7 +261,7 @@ month_days = cal.monthdayscalendar(cal_year, cal_month)
 - id: build_calendar_grid_using_native_streamlit_columns
 - status: active
 - type: context
-- last_checked: 2026-01-31
+- last_checked: 2026-02-01
 <!-- content -->
 for week in month_days:
     cols = st.columns(7)
@@ -331,6 +331,13 @@ st.markdown("""
 **The ONLY solution**: Use `st.button()` components. They are the sole mechanism for triggering Python code from user clicks in Streamlit.
 
 **Workaround pattern**: If visual design requires link-like appearance, style buttons to look like links:
+```css
+button {
+    background: transparent !important;
+    color: #64ffda !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}
 ```
 
 ### Zip Download of Source Files
