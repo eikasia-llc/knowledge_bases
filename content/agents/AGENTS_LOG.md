@@ -104,6 +104,9 @@ Most recent event comes first
     - Ran `clean_repo.py` and `compare_and_merge.py` according to protocol.
     - **Updated**: `PERSONALITY_AGENT.md`, `SCRAPER_AGENT.md`, `HOUSEKEEPING.md`, `GCLOUD_AGENT.md`, `RAGS_AGENT.md`, `MCP_AGENT.md`, `AGENTS_LOG.md`, `PYUI_AGENT.md`.
     - **New**: Imported `personality.md` as reference to `content/guidelines/LEOPOLD_PERSONA.md`.
-    - **Ignored**: `TODOS.md` (generic), `rag_improvements.md` (missing from remote).
-    - **Protocol Update**: Added "Cleanup" step to `CLEANER_AGENT.md` to enforce `temprepo_cleaning` emptying after runs.
+    - **Ignore**: `TODOS.md` (generic), `rag_improvements.md` (missing from remote).
+    - **Protocol Update**: 
+        - Added "Cleanup" step to `CLEANER_AGENT.md` (Step 10).
+        - Added "Update Registry" step to `CLEANER_AGENT.md` (Step 11).
+        - Merged redundant `manager/cleaner/CLEANER_AGENT.md` into `content/agents/CLEANER_AGENT.md` and deleted the former.
 - **Outcome**: Knowledge base updated and cleaner protocol refined.

@@ -47,7 +47,7 @@ You have access to the following specialized tools in this directory and the `la
 - last_checked: 2026-01-31
 <!-- content -->
 - **Location**: `manager/cleaner/compare_and_merge.py`
-- **Usage**: `python3 manager/cleaner/compare_and_merge.py [--dry-run]`
+- **Usage**: `python3 manager/cleaner/compare_and_merge.py [--repo_dir <dir>] [--content_dir <dir>] [--dry-run]`
 - **Function**: Scans ingested repositories and "Smart Merges" them into the `content/` directory.
 - **Logic**:
     - **Identical**: Skipped.
@@ -85,3 +85,6 @@ When asked to "Clean Repos" or "Import Data", follow this strict sequence:
 10. **Cleanup**:
     - **Action**: Remove all contents of `manager/cleaner/temprepo_cleaning/` to ensure a clean state for the next run.
     - **Command**: `rm -rf manager/cleaner/temprepo_cleaning/*`
+11. **Update Registry**:
+    - **Action**: Scan the project to update `dependency_registry.json` with any new file relationships.
+    - **Command**: `python3 src/dependency_manager.py scan`

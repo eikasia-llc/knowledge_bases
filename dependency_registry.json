@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "description": "Knowledge Base Dependency Registry",
-  "last_updated": "2026-01-31",
+  "last_updated": "2026-02-01",
   "files": {
     "content/guidelines/INFRASTRUCTURE_DEFINITIONS.md": {
       "path": "content/guidelines/INFRASTRUCTURE_DEFINITIONS.md",
@@ -574,6 +574,38 @@
     },
     "AGENTS.md": {
       "path": "AGENTS.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "HOUSEKEEPING.md": {
+      "path": "HOUSEKEEPING.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "AGENTS_LOG.md": {
+      "path": "AGENTS_LOG.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/guidelines/LEOPOLD_PERSONA.md": {
+      "path": "content/guidelines/LEOPOLD_PERSONA.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "manager/cleaner/repositories/mcmp_chatbot/AGENTS_LOG.md": {
+      "path": "manager/cleaner/repositories/mcmp_chatbot/AGENTS_LOG.md",
       "dependencies": {
         "conventions": "MD_CONVENTIONS.md",
         "agents": "AGENTS.md",
