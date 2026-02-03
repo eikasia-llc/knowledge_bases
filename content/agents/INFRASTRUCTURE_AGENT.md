@@ -69,12 +69,18 @@ Your workspace (the root directory in which you can access files) is git version
 - type: context
 - last_checked: 2026-01-25
 <!-- content -->
-- Google Cloud MCP
-- gcloud CLI 
+- Google Cloud MCP (if needed an unavailable, ask the human user for it)
+- Google Cloud CLI: `gcloud`. Always run `gcloud auth login` to authenticate. Active account has to be: eikasia@eikasia.com
+- Big Query CLI: `bq`
+- Firebase CLI: `firebase`
 - Google Cloud Web Console
-- Web browser for tools from vendors other than google
+- Google Cloud Web Shell
+- Google Chrome (Integrated)
 - Do *not* use `kubectl` without asking for permission as this tool may be configured to work with another company
 - git
+
+Before using gcloud, always run `gcloud auth login` to authenticate.
+Active account has to be: "eikasia@eikasia.com"
 
 ## Agent Log Entry Template
 - status: in-progress
