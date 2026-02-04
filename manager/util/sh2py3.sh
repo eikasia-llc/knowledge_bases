@@ -22,7 +22,7 @@ SCRIPT_NAME="$(basename "$INVOKED_PATH")"
 # then into category (manager), then the script with .py
 # logic: $INVOKED_DIR/../../$CATEGORY/$SCRIPT_NAME.py
 
-PYTHON_SCRIPT="$INVOKED_DIR/../../$CATEGORY/$SCRIPT_NAME.py"
+PYTHON_SCRIPT="$INVOKED_DIR/../../manager/$CATEGORY/$SCRIPT_NAME.py"
 
 # Execute
 exec "$PYTHON_CMD" "$PYTHON_SCRIPT" "$@"
