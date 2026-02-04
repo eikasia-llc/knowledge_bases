@@ -26,6 +26,16 @@ graph TD
 | **Registry** | **Artifact Registry / GCR** | Stores the Docker container images for the application. |
 | **Storage (Ephemeral)** | **In-memory / `/tmp`** | Stores the cloned repository during the container's lifetime. Note that this is cleared when the instance shuts down. |
 
+### On Ephemeral Storage
+
+In Google Cloud Run, a container's life doesn't end the moment it finishes sending an HTTP response. Instead, it enters a state of "idle" where Google keeps it alive to avoid the performance penalty of a "cold start" for the next request.
+
+#### The "Idle" Grace Period
+Once your container sends the final byte of a response, it is marked as idle.
+Default Duration: Cloud Run typically keeps idle instances alive for up to 15 minutes.
+Purpose: This "warm" state allows the container to handle subsequent requests instantly. If a new request arrives during this window, the container is "reused," and the idle timer resets.
+Persistent storage is github. Manually synced via UI buttons.
+
 ## Security Layers
 
 1. **Identity-Aware Proxy (IAP)**: The first line of defense. Only users in the `eikasia.com` organization with the `IAP-secured Web App User` role can reach the application.
