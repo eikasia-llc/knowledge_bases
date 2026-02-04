@@ -61,6 +61,15 @@ pip install -r requirements.txt
 streamlit run src/app.py
 ```
 
+## Streamlit app
+
+The main command for running a Streamlit app is `streamlit run`. Streamlit also offers several other command-line interface (CLI) tools for configuration, documentation, and example apps. 
+
+`streamlit run your_app.py` starts a local web server and opens your app in a new tab in your default web browser, typically at http://localhost:8501. 
+You can also pass a URL to streamlit run if your script is hosted remotely, such as on GitHub: 
+streamlit run https://raw.githubusercontent.com 
+
+
 ### Running the Meta MCP Server
 To enable dynamic context discovery in your IDE:
 
