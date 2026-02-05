@@ -1,0 +1,77 @@
+substitutions:
+  _SERVICE_NAME: knowledge-base-app
+  _REGION: us-central1
+  # IMAGE paths — $PROJECT_ID is a Cloud Build built-in, resolved at runtime.
+  # Nested substitution refs (${_FOO} inside another sub) are NOT supported,
+  # so the registry + project + name are written out explicitly here.
+  _BUILDER_IMAGE: knowledge-base-repo/$PROJECT_ID/knowledge-base-app-builder
+  _FINAL_IMAGE:   knowledge-base-repo/$PROJECT_ID/knowledge-base-app
+
+steps:
+  # ---------------------------------------------------------------------------
+  # 1. Pull cached images (best-effort — first build will miss, that's fine)
+  # ---------------------------------------------------------------------------
+  - name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        docker pull ${_BUILDER_IMAGE}:latest || true
+        docker pull ${_FINAL_IMAGE}:latest  || true
+
+  # ---------------------------------------------------------------------------
+  # 2. Build the intermediate "builder" stage, using its own cached image
+  # ---------------------------------------------------------------------------
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --cache-from=${_BUILDER_IMAGE}:latest
+      - --target=builder
+      - -t=${_BUILDER_IMAGE}:latest
+      - .
+
+  # ---------------------------------------------------------------------------
+  # 3. Push the builder image immediately so the *next* build can cache it
+  # ---------------------------------------------------------------------------
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_BUILDER_IMAGE}:latest
+
+  # ---------------------------------------------------------------------------
+  # 4. Build the final image, pulling cache from both stages
+  # ---------------------------------------------------------------------------
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --cache-from=${_BUILDER_IMAGE}:latest
+      - --cache-from=${_FINAL_IMAGE}:latest
+      - -t=${_FINAL_IMAGE}:latest
+      - .
+
+  # ---------------------------------------------------------------------------
+  # 5. Push the final image
+  # ---------------------------------------------------------------------------
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_FINAL_IMAGE}:latest
+
+  # ---------------------------------------------------------------------------
+  # 6. Deploy to Cloud Run
+  # ---------------------------------------------------------------------------
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE_NAME}
+      - --image=${_FINAL_IMAGE}:latest
+      - --platform=managed
+      - --region=${_REGION}
+      - --set-env-vars=GITHUB_REPO_URL=https://github.com/eikasia-llc/knowledge_base.git
+      - --update-secrets=GITHUB_TOKEN=GITHUB_TOKEN:latest
+      - --memory=1Gi
+      - --cpu=1
+
+options:
+  logging: CLOUD_LOGGING_ONLY
