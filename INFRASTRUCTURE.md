@@ -19,11 +19,11 @@ graph TD
 
 | Component | Service | Purpose |
 | :--- | :--- | :--- |
+| **Registry** | **Artifact Registry / GCR** | Stores the Docker container images for the application. |
 | **Compute** | **Google Cloud Run** | Hosts the Streamlit application as a serverless container. Scalable and only runs when requests are active. |
 | **Authentication** | **Identity-Aware Proxy (IAP)** | Secures the `run.app` URL. Intercepts incoming requests and requires a Google login before granting access to authorized users. |
 | **Secret Management** | **Secret Manager** | Securely stores the GitHub Personal Access Token (`GITHUB_TOKEN`) used for repository synchronization. |
 | **Persistence** | **Git / GitHub** | Acts as the source of truth for knowledge files. The app pulls content from GitHub to ephemeral storage on startup. |
-| **Registry** | **Artifact Registry / GCR** | Stores the Docker container images for the application. |
 | **Storage (Ephemeral)** | **In-memory / `/tmp`** | Stores the cloned repository during the container's lifetime. Note that this is cleared when the instance shuts down. |
 
 ## Deployment Commands
