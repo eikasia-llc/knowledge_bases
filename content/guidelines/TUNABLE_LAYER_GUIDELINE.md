@@ -3,6 +3,7 @@
 - type: guideline
 - id: tunable-layer-guideline
 - last_checked: 2026-02-08
+- label: [guide]
 <!-- content -->
 This document describes strategies for adding **trainable intermediate layers** to the Unified Nexus Architecture in order to improve LLM performance for end users. The core idea is that instead of relying solely on prompt engineering or expensive full model retraining, we inject lightweight, fine-tunable components at strategic points in the pipeline. These components can learn from user feedback over time, creating a continuous improvement loop.
 

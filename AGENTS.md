@@ -1,6 +1,7 @@
 # AGENTS.md
 - status: active
 - type: guideline
+- label: [template, core]
 <!-- content -->
 
 ## SHORT ADVICE

@@ -1,6 +1,7 @@
 # Housekeeping Protocol
 - status: recurring
 - type: guideline
+- label: [guide, core]
 <!-- content -->
 1. Read the AGENTS.md file.
 2. Look at the dependency network of the project, namely which script refers to which one.

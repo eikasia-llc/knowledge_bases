@@ -2,6 +2,7 @@
 - status: active
 - type: guideline
 - id: md_json_hybrid_schema_conventions
+- label: [core]
 <!-- content -->
 This document defines the strict conventions for the **Markdown-JSON Hybrid Schema** used in this project for hierarchical task coordination and agentic planning.
 
@@ -106,6 +107,25 @@ For extended fields consider:
  - The key is entirely lowercase
  - The key has no spaces (words are separated with dash or underscore)
  - The value is single line
+
+### Standard Labels
+- id: markdown_json_hybrid_schema_conventions.standard_labels
+- status: active
+- type: context
+- last_checked: 2026-02-23
+<!-- content -->
+Labels are lists of strings, allowing multiple keywords for a single node. The repository uses these standard labels:
+
+- **`agent`**: Agent skills or configurations.
+- **`planning`**: Project plans, roadmaps, or objective outlines.
+- **`draft`**: Markdowns that are incomplete, under construction, or lack clarity.
+- **`guide`**: Guidelines, instructions, or best practices.
+- **`template`**: General content that needs to be specified for particular projects (e.g., `README.md`, `AGENTS.md` often serve as templates).
+- **`core`**: Essential project documentation defining the foundation of the repository (e.g., `MD_CONVENTIONS.md`).
+- **`infrastructure`**: Deployment, CI/CD, and Cloud resource documentation.
+- **`frontend`**: Client-side application, UI, and usage documentation.
+- **`backend`**: Server-side logic, parsing, dependency resolution, and MCP server documentation.
+- **`reference`**: Textbooks, external manuals, or deep-dive reference materials for context injection.
 
 ### 4. Dependencies
 - status: active

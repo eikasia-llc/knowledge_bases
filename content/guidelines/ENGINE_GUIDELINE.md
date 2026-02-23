@@ -3,6 +3,7 @@
 - type: guideline
 - id: engine-explanation
 - last_checked: 2026-02-07
+- label: [guide]
 <!-- content -->
 This document explores the concept of a **software engine** in computer science: what it is, what properties define it, and how this concept maps to the **MCP Client Engine** used in this project. Understanding the engine pattern clarifies *why* the MCP architecture is structured the way it is.
 

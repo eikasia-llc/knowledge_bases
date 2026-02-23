@@ -3,6 +3,7 @@
 - status: active
 - type: documentation
 - last_checked: 2026-01-25
+- label: [infrastructure]
 <!-- content -->
 
 ## Preferred technology stack

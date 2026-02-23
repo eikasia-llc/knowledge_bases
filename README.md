@@ -1,6 +1,7 @@
 # Knowledge Base Repository
 - status: active
 - type: guideline
+- label: [template, core]
 <!-- content -->
 
 ## Production ready app

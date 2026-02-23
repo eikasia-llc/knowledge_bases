@@ -5,6 +5,7 @@
 - owner: [owner-id]
 - priority: [low|medium|high]
 - last_checked: [YYYY-MM-DD]
+- label: [guide]
 <!-- content -->
 [One-line summary or description of the document.]
 

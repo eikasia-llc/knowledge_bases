@@ -1,6 +1,7 @@
 # Prompting Module
 - status: active
 - type: guideline
+- label: [guide]
 <!-- content -->
 This module provides tools for managing Markdown file dependencies and generating prompt injection text for AI coding assistants.
 

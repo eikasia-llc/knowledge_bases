@@ -2,6 +2,7 @@
 - status: active
 - type: plan
 - owner: antigravity
+- label: [planning]
 <!-- content -->
 This document outlines the strategy for integrating **Scikit-Learn** into the Local Nexus via the **Model Context Protocol (MCP)**. This allows the chatbot to perform machine learning operations (training, prediction, data loading) in an isolated, standardized environment.
 

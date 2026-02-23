@@ -3,6 +3,7 @@
 - type: guideline
 - id: mcp-explanation
 - last_checked: 2026-02-04
+- label: [guide]
 <!-- content -->
 This document provides a comprehensive explanation of the **Model Context Protocol (MCP)** as implemented in this project. It covers the fundamental concepts, architecture, information flow, and how to extend the pattern from JSON data sources to relational databases.
 
