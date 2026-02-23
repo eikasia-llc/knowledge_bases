@@ -2,6 +2,7 @@
 - status: active
 - estimate: 2w
 - type: plan
+- label: [planning, backend]
 <!-- content -->
 
 ## Phase 1: Infrastructure Setup

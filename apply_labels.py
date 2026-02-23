@@ -3,65 +3,56 @@ import re
 
 def get_category_from_path(file_path):
     labels = []
+    file_path_lower = file_path.lower()
     
-    # Root files
-    if file_path.startswith('./') and '/' not in file_path[2:]:
-        if 'README.md' in file_path or 'AGENTS.md' in file_path:
-            labels.extend(['template', 'core'])
-        elif 'MD_CONVENTIONS.md' in file_path:
-            labels.append('core')
-        elif 'HOUSEKEEPING.md' in file_path:
-            labels.extend(['guide', 'core'])
-        elif 'TODOS.md' in file_path:
-            labels.extend(['planning', 'draft'])
-            
-    # Content files
-    elif 'content/agents/' in file_path:
+    if 'agent' in file_path_lower:
         labels.append('agent')
-    elif 'content/plans/' in file_path:
+    if 'plan' in file_path_lower or 'todo' in file_path_lower:
         labels.append('planning')
-    elif 'content/guidelines/' in file_path:
+    if 'guide' in file_path_lower or 'convention' in file_path_lower or 'protocol' in file_path_lower:
         labels.append('guide')
-    elif 'content/logs/' in file_path:
+    if 'housekeeping' in file_path_lower or 'readme' in file_path_lower or 'agents.md' in file_path_lower or 'md_conventions' in file_path_lower:
         labels.append('core')
-    elif 'content/documentation/' in file_path:
-        if 'INFRASTRUCTURE' in file_path:
-            labels.append('infrastructure')
-        else:
-            labels.append('reference')
-            
+    if 'readme' in file_path_lower or 'agents.md' in file_path_lower or 'template' in file_path_lower:
+        labels.append('template')
+    if 'infrastructure' in file_path_lower or 'cloud' in file_path_lower or 'deploy' in file_path_lower:
+        labels.append('infrastructure')
+    if 'app' in file_path_lower or 'frontend' in file_path_lower or 'ui' in file_path_lower:
+        labels.append('frontend')
+    if 'manager' in file_path_lower or 'language' in file_path_lower or 'backend' in file_path_lower or 'server' in file_path_lower:
+        labels.append('backend')
+    if 'log' in file_path_lower:
+        labels.append('core')
+    if 'doc' in file_path_lower and 'infrastructure' not in file_path_lower:
+        labels.append('reference')
+    if 'test' in file_path_lower:
+        labels.append('backend')
+
+    if not labels:
+        labels.append('reference') # Fallback category
+        
     # Remove duplicates
-    labels = list(dict.fromkeys(labels))
-    return labels
+    return list(dict.fromkeys(labels))
 
 def process_file(file_path):
     labels = get_category_from_path(file_path)
-    if not labels:
-        return False
         
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
         
-    # Match the first header and its metadata block up to <!-- content -->
-    # We look for ^#+\s+.*?\n((?:[-a-zA-Z0-9_]+:.*?\n)*)<!-- content -->
-    
     pattern = re.compile(r'^(#+ .*?\n)(.*?)<!-- content -->', re.DOTALL | re.MULTILINE)
-    match = pattern.search(content)
     
+    match = pattern.search(content)
     if not match:
         return False
         
-    header_line = match.group(1)
     metadata_block = match.group(2)
     
+    # Check if the FIRST metadata block has a label
     if '- label:' in metadata_block or 'label:' in metadata_block:
-        # Label already exists, skip
         return False
         
-    # Create the new label line
     label_str = "- label: [" + ", ".join(labels) + "]\n"
-    
-    # Insert label at the end of the metadata block
     new_metadata_block = metadata_block + label_str
     
     new_content = content[:match.start(2)] + new_metadata_block + content[match.end(2):]
@@ -75,7 +66,7 @@ def process_file(file_path):
 if __name__ == '__main__':
     modified_count = 0
     for root, dirs, files in os.walk('.'):
-        if '.git' in root or 'temprepo_cleaning' in root or 'manager/cleaner' in root or '.gemini' in root or '.pytest_cache' in root:
+        if '.git' in root or 'temprepo_cleaning' in root or 'repositories' in root or '.gemini' in root or '.pytest_cache' in root:
             continue
             
         for file in files:

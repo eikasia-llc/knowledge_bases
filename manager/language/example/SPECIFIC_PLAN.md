@@ -1,6 +1,7 @@
 # detailed_implementation
 - status: proposed
 - type: plan
+- label: [planning, backend]
 <!-- content -->
 
 ## Setup Database

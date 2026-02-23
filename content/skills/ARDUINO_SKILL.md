@@ -1,6 +1,8 @@
 # **ARDUINO AGENT ARCHITECTURE**
 - status: active
 - type: agent_skill
+- label: ['agent']
+<!-- content -->
 
 **Status:** Draft
 

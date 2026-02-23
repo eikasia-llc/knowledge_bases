@@ -1,6 +1,7 @@
 # Software Release Cycle
 - id: release_cycle
 - type: documentation
+- label: [backend, reference]
 <!-- content -->
 
 ## Development

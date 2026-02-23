@@ -1,6 +1,8 @@
 # Cloud Infrastructure: Knowledge Base
 - status: active
 - type: documentation
+- label: ['infrastructure']
+<!-- content -->
 
 This document details the cloud components and security layers used to deploy and protect the Knowledge Base application on Google Cloud Platform.
 
