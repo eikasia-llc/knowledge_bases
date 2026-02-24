@@ -1,0 +1,15 @@
+{
+    "mcp": {
+        "servers": {
+            "kb_mcp": {
+                "type": "stdio",
+                "command": "python3",
+                "args": [
+                    "-m",
+                    "kb_mcp"
+                ],
+                "cwd": "${workspaceFolder}"
+            }
+        }
+    }
+}
