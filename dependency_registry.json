@@ -812,6 +812,16 @@
       },
       "type": "plan",
       "description": "This document proposes an architecture that unifies **RAG (Retrieval-Augmented Generation)** for unstructured data with **Data Warehouse + Text2SQL** for structured data. The result is a system that can answer questions requiring both semantic understanding and precise computation."
+    },
+    "content/skills/KB_SKILL.md": {
+      "path": "content/skills/KB_SKILL.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      },
+      "type": "agent_skill",
+      "description": "This skill enables AI coding assistants to discover and read knowledge base documents with automatic dependency resolution. It uses `dependency_registry.json` as the catalog and the project's markdown files as the knowledge source."
     }
   }
 }
