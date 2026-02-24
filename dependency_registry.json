@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "description": "Knowledge Base Dependency Registry",
-  "last_updated": "2026-02-01",
+  "last_updated": "2026-02-24",
   "files": {
     "content/documentation/INFRASTRUCTURE_DEFINITIONS_DOC.md": {
       "path": "content/documentation/INFRASTRUCTURE_DEFINITIONS_DOC.md",
@@ -417,6 +417,42 @@
     "content/skills/MCP_AGENT_EXTENDED_SKILL.md": {
       "path": "content/skills/MCP_AGENT_EXTENDED_SKILL.md",
       "dependencies": {}
+    },
+    "content/skills/ADK_SKILL.md": {
+      "path": "content/skills/ADK_SKILL.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md"
+      }
+    },
+    "content/skills/ADK_MCP_SKILL.md": {
+      "path": "content/skills/ADK_MCP_SKILL.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md",
+        "adk_root": "content/skills/ADK_SKILL.md"
+      }
+    },
+    "content/skills/ADK_TOOLS_SKILL.md": {
+      "path": "content/skills/ADK_TOOLS_SKILL.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md",
+        "adk_root": "content/skills/ADK_SKILL.md",
+        "adk_mcp": "content/skills/ADK_MCP_SKILL.md"
+      }
+    },
+    "content/skills/ADK_WORKFLOW_SKILL.md": {
+      "path": "content/skills/ADK_WORKFLOW_SKILL.md",
+      "dependencies": {
+        "conventions": "MD_CONVENTIONS.md",
+        "agents": "AGENTS.md",
+        "project_root": "README.md",
+        "adk_root": "content/skills/ADK_SKILL.md"
+      }
     }
   }
 }

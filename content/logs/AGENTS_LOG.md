@@ -151,6 +151,35 @@ Most recent event comes first
     - Updated `prompts/personality.md` to explicitly forbid asking for permission.
 - **Outcome**: Prompt instructions are now imperative and strictly enforce automatic tool usage.
 
+### 2026-02-24: Add ADK Tools Skill and Skill Map (adk_playground)
+- id: agents_log.intervention_history.2026_02_24_add_adk_tools_skill
+- status: active
+- type: documentation
+- last_checked: 2026-02-24
+- label: [agent, log]
+<!-- content -->
+- **Task**: Add `ADK_TOOLS_SKILL.md` to `knowledge_bases` and update `ADK_SKILL.md` with a skill map.
+- **Changes**:
+    - **New**: Added `content/skills/ADK_TOOLS_SKILL.md` — comprehensive reference for all ADK tool types (built-in, native ADK, MCP, observability); 12 sections, 24 tools catalogued (BigQuery, Vertex AI Search, RAG, GitHub, Stripe, Atlassian, MongoDB, Pinecone, Notion, AgentOps, MLflow, and more).
+    - **Updated**: Added `## 0. ADK Skill Map` section to `content/skills/ADK_SKILL.md` — navigation table linking all four core ADK skill documents with coverage descriptions and a recommended reading order.
+- **Source**: `adk_playground/docs/ADK_TOOLS_SKILL.md`, `adk_playground/docs/ADK_SKILL.md`
+- **Outcome**: Four ADK skill documents now present in `knowledge_bases` with a unified index in `ADK_SKILL.md`.
+
+### 2026-02-24: Add ADK Workflow Skill (adk_playground)
+- id: agents_log.intervention_history.2026_02_24_add_adk_workflow_skill
+- status: active
+- type: documentation
+- last_checked: 2026-02-24
+- label: [agent, log]
+<!-- content -->
+- **Task**: Sync ADK skill markdowns from `adk_playground` into `knowledge_bases`.
+- **Changes**:
+    - Verified `content/skills/ADK_SKILL.md` — already up to date, no changes needed.
+    - Verified `content/skills/ADK_MCP_SKILL.md` — already up to date, no changes needed.
+    - **New**: Added `content/skills/ADK_WORKFLOW_SKILL.md` — comprehensive guide to ADK workflow agents (`SequentialAgent`, `ParallelAgent`, `LoopAgent`), covering imports, state management, exit_loop pattern, 6 composition patterns, 24 named workflow patterns, design principles, and troubleshooting.
+- **Source**: `adk_playground/docs/ADK_WORKFLOW_SKILL.md`
+- **Outcome**: All three ADK skill documents are now present and current in `knowledge_bases`.
+
 ### 2026-02-02: Fix RAG vs MCP Conflict (Antigravity)
 - id: agents_log.intervention_history.2026_02_02_fix_rag_vs_mcp_conflict_antigravity
 - status: active
