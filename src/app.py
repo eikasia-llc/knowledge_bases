@@ -13,7 +13,6 @@ sys.path.append(str(current_dir))
 
 from dependency_manager import DependencyManager
 from git_manager import GitManager
-from md_parser import MarkdownParser
 
 # Helper for token counting
 @st.cache_resource
@@ -111,7 +110,7 @@ except FileNotFoundError:
 
 files = registry.get("files", {})
 
-# Categorize Files — by parsing the 'type' metadata field from each markdown
+# Categorize Files — by reading the 'type' field from the registry
 TYPE_DISPLAY_NAMES = {
     "agent_skill": "Skills",
     "guideline": "Guidelines",
@@ -121,20 +120,9 @@ TYPE_DISPLAY_NAMES = {
     "task": "Tasks",
 }
 
-@st.cache_data
-def get_file_type(abs_path: str) -> str:
-    """Parse a markdown file and return its root-level 'type' metadata."""
-    try:
-        parser = MarkdownParser()
-        root = parser.parse_file(abs_path)
-        return root.metadata.get("type", None)
-    except Exception:
-        return None
-
 categories = {}
-for path in files:
-    abs_path = str(manager.project_root / path)
-    file_type = get_file_type(abs_path)
+for path, info in files.items():
+    file_type = info.get("type") if isinstance(info, dict) else None
     display = TYPE_DISPLAY_NAMES.get(file_type, "Other")
     categories.setdefault(display, []).append(path)
 

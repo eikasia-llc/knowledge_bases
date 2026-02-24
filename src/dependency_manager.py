@@ -125,6 +125,14 @@ class DependencyManager:
             print(f"Warning: Could not parse {file_path}: {e}", file=sys.stderr)
             return {}
 
+    def extract_type_from_file(self, file_path: Path) -> Optional[str]:
+        """Extract the root-level 'type' metadata from a single MD file."""
+        try:
+            root_node = self.parser.parse_file(str(file_path))
+            return root_node.metadata.get('type', None)
+        except Exception:
+            return None
+
     def scan_project(self, patterns: Optional[List[str]] = None) -> Dict[str, Dict]:
         """
         Scan the project for MD files and extract their dependencies.
@@ -181,9 +189,12 @@ class DependencyManager:
                     else:
                         deps[alias] = dep_name
 
+                file_type = self.extract_type_from_file(md_file)
+
                 scanned[rel_path] = {
                     "path": rel_path,
-                    "dependencies": deps
+                    "dependencies": deps,
+                    "type": file_type
                 }
 
         return scanned
@@ -214,7 +225,8 @@ class DependencyManager:
             
             self.registry["files"][rel_path] = {
                 "path": rel_path,
-                "dependencies": merged_deps
+                "dependencies": merged_deps,
+                "type": info.get("type")
             }
 
         self._save_registry()
