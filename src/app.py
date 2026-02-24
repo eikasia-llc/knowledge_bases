@@ -65,7 +65,11 @@ with st.sidebar:
             with st.spinner("Pulling..."):
                 success, output = git.pull()
                 st.session_state["git_output"] = output
-                if success: st.success("Pulled updates.")
+                if success:
+                    with st.spinner("Updating registry..."):
+                        scanned = manager.scan_project()
+                        manager.update_registry(scanned)
+                    st.success(f"Pulled updates. Registry refreshed ({len(scanned)} files).")
                 else: st.error("Pull failed.")
     
     with col2:
