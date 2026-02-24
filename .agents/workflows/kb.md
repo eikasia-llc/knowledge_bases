@@ -12,4 +12,6 @@ description: Look up and read knowledge base documents with automatic dependency
 
 4. Use `view_file` to read each dependency file in order, then the target file.
 
+**IMPORTANT: Do not overfill the context.** Only read markdowns that are directly relevant to the user's question. Read a maximum of six markdowns total (dependencies + target). If the dependency tree exceeds this limit, prioritize the target file and its most relevant dependencies.
+
 5. Synthesize the information and answer the user's question. Do not dump raw markdown — provide a clear, concise answer.
